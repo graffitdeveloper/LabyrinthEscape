@@ -36,7 +36,7 @@ namespace Assets.Scripts.LabyrinthElements
             for (int x = 0; x < grid.Width; x++)
             {
                 // Здесь инстанциируются префабы
-                switch (grid.GetCellType(x, y))
+                switch (grid.GetCell(x, y).CellType)
                 {
                     case CellType.EmptyCell:
                         var newFloor = Instantiate(_floorViewPrefab, _labyrinthElementsContainer);

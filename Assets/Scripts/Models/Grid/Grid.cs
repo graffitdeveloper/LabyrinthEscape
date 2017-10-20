@@ -1,4 +1,6 @@
-﻿namespace LabyrinthEscape.GridControls
+﻿using System.Collections.Generic;
+
+namespace LabyrinthEscape.GridControls
 {
     /// <summary>
     /// Класс сетки
@@ -16,6 +18,8 @@
         /// Высота сетки
         /// </summary>
         public int Height { get; private set; }
+
+        public int CellsCount { get; private set; }
 
         /// <summary>
         /// Массив всех ячеек
@@ -41,7 +45,7 @@
 
             for (int y = 0; y < Height; y++)
                 for (int x = 0; x < Width; x++)
-                    _gridCells[x, y] = new GridCell(CellType.EmptyCell);
+                    _gridCells[x, y] = new GridCell(this, CellType.EmptyCell, x, y);
         }
 
         /// <summary>
@@ -65,16 +69,26 @@
         /// </summary>
         /// <param name="x">Позиция целевой ячейки по x</param>
         /// <param name="y">Позиция целевой ячейки по y</param>
-        public CellType GetCellType(int x, int y)
+        public GridCell GetCell(int x, int y)
         {
             if (x >= Width || y >= Height)
-                throw new System.Exception(
-                    string.Format("Sorry, but cell is out of range! x:{0}, y:{1}, width:{2}, height:{3}", x, y, Width,
-                    Height));
+                return null;
 
-            return _gridCells[x, y].CellType;
+            return _gridCells[x, y];
         }
 
         #endregion
+
+        public List<GridCell> GetFreeCells()
+        {
+            var result = new List<GridCell>();
+
+            for (int y = 0; y < Height; y++)
+                for (int x = 0; x < Width; x++)
+                    if (_gridCells[x, y].CellType == CellType.EmptyCell)
+                        result.Add(_gridCells[x, y]);
+
+            return result;
+        }
     }
 }

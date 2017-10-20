@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LabyrinthEscape.GridControls
 {
@@ -71,7 +72,7 @@ namespace LabyrinthEscape.GridControls
         /// <param name="y">Позиция целевой ячейки по y</param>
         public GridCell GetCell(int x, int y)
         {
-            if (x >= Width || y >= Height)
+            if (x < 0 || y < 0 || x >= Width || y >= Height)
                 return null;
 
             return _gridCells[x, y];

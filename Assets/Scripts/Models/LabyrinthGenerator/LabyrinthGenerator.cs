@@ -73,22 +73,30 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
 
         private void ModifyLabyrinthCreateRandomCoridors(Grid grid)
         {
+            // список всех свободных ячеек
             var freeCells = grid.GetFreeCells();
+
+            // список всех единожды посещенных свободных ячеек
             var visitedCells = new List<GridCell>();
+
+            // стек-путь генерации ячеек
             var path = new Stack<GridCell>();
 
-            // стартовую точку берем рандомно, и отмечаем её как посещенную
-            var currentCell = freeCells[Random.Range(0, freeCells.Count - 1)];
+            // стартовую точку берем рандомно, и отмечаем её как посещенную и текущую, а так же добавляем её в
+            // пройденный путь
+            var currentCell = freeCells[Random.Range(0, freeCells.Count)];
             visitedCells.Add(currentCell);
             path.Push(currentCell);
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
+                // получаем все существующие соседние ячейки от текущей
                 var neighborsDirections = currentCell.GetNeighborsDirections();
 
                 while (true)
                 {
-                    int randomDirectionIndex = Random.Range(0, neighborsDirections.Count - 1);
+                    // выбираем рандомно одну из возможных сторон направления к соседней ячейке
+                    int randomDirectionIndex = Random.Range(0, neighborsDirections.Count);
 
                     var randomNeighborCell =
                         currentCell.GetNeighbourCell(neighborsDirections[randomDirectionIndex]);
@@ -104,10 +112,15 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
                     }
                     else
                     {
+                        var nearbyCell = currentCell.GetNearbyCell((Direction) randomDirectionIndex);
+                        nearbyCell.CellType = CellType.EmptyCell;
+
+                        visitedCells.Add(nearbyCell);
+                        freeCells.Add(nearbyCell);
+                        visitedCells.Add(randomNeighborCell);
+                        path.Push(nearbyCell);
+                        path.Push(randomNeighborCell);
                         currentCell = randomNeighborCell;
-                        visitedCells.Add(currentCell);
-                        path.Push(currentCell);
-                        currentCell.GetNearbyCell((Direction) randomDirectionIndex).CellType = CellType.EmptyCell;
 
                         break;
                     }

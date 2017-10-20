@@ -27,9 +27,9 @@ namespace Assets.Scripts.LabyrinthElements
 
         public void DrawGrid(Grid grid)
         {
-            foreach (var wall in _labyrinthElements)
-                Destroy(wall);
-
+            foreach (var labyrinthElement in _labyrinthElements)
+                Destroy(labyrinthElement.gameObject);
+            
             _labyrinthElements = new List<LabyrinthElementView>();
 
             for (int y = 0; y < grid.Height; y++)
@@ -59,6 +59,8 @@ namespace Assets.Scripts.LabyrinthElements
                         break;
                 }
             }
+
+            grid = null;
         }
 
         #endregion

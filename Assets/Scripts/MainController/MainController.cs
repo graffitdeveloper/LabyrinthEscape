@@ -19,23 +19,27 @@ public class MainController : MonoBehaviour
     /// <summary>
     /// Initialization
     /// </summary>
-    public void Start()
+    public void Update()
     {
-        // Подстраивает размеры сетки под допустимые: для правильной постройки сетки ширина и высота сетки должны быть
-        // с нечетной величиной, а так же больше или равны 3
-        if (_labWidth < 3)
-            _labWidth = 3;
-        else if (_labWidth % 2 == 0)
-            _labWidth--;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // Подстраивает размеры сетки под допустимые: для правильной постройки сетки ширина и высота сетки должны быть
+            // с нечетной величиной, а так же больше или равны 3
+            if (_labWidth < 3)
+                _labWidth = 3;
+            else if (_labWidth % 2 == 0)
+                _labWidth--;
 
-        if (_labHeight < 3)
-            _labHeight = 3;
-        else if (_labHeight % 2 == 0)
-            _labHeight--;
+            if (_labHeight < 3)
+                _labHeight = 3;
+            else if (_labHeight % 2 == 0)
+                _labHeight--;
 
-        var labyrinth = LabyrinthGenerator.Instance.GenerateLabyrinth(_labWidth, _labHeight);
+            var labyrinth = LabyrinthGenerator.Instance.GenerateLabyrinth(_labWidth, _labHeight);
 
-        _labyrinthView.DrawGrid(labyrinth);
+            _labyrinthView.DrawGrid(labyrinth);
+            labyrinth = null;
+        }
     }
 
     #endregion

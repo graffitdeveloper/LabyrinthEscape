@@ -1,4 +1,4 @@
-﻿namespace LabGen.LabyrinthElements
+﻿namespace LabyrinthEscape.LabyrinthElements
 {
     public class FloorView : LabyrinthElementView
     {

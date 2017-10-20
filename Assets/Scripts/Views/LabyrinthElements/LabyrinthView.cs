@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using LabGen.LabyrinthElements;
+using LabyrinthEscape.LabyrinthElements;
 using UnityEngine;
-using LabGen.GridControls;
+using LabyrinthEscape.GridControls;
 
 namespace Assets.Scripts.LabyrinthElements
 {

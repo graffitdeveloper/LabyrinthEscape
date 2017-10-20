@@ -1,4 +1,4 @@
-﻿namespace LabGen.GridControls
+﻿namespace LabyrinthEscape.GridControls
 {
     public enum CellType
     {

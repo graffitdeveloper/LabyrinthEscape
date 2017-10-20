@@ -1,6 +1,6 @@
-﻿using LabGen.GridControls;
+﻿using LabyrinthEscape.GridControls;
 
-namespace LabGen.LabyrinthGeneratorControls
+namespace LabyrinthEscape.LabyrinthGeneratorControls
 {
     public class LabyrinthGenerator
     {

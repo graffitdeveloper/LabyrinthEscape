@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.LabyrinthElements;
-using LabGen.LabyrinthGeneratorControls;
+using LabyrinthEscape.LabyrinthGeneratorControls;
 using UnityEngine;
 
 public class MainController : MonoBehaviour

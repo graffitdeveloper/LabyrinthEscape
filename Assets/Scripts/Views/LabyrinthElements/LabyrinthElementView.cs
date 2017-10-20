@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LabGen.LabyrinthElements
+namespace LabyrinthEscape.LabyrinthElements
 {
     public abstract class LabyrinthElementView : MonoBehaviour
     {

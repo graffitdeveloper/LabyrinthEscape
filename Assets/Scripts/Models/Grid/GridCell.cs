@@ -1,4 +1,4 @@
-﻿namespace LabGen.GridControls
+﻿namespace LabyrinthEscape.GridControls
 {
     /// <summary>
     /// Класс ячейки

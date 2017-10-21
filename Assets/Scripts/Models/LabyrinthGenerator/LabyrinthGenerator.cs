@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using LabyrinthEscape.GridControls;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace LabyrinthEscape.LabyrinthGeneratorControls
 {
@@ -95,6 +96,10 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
             {
                 // все стороны, в которых есть свободные ячейки
                 var neighborsDirections = currentCell.GetNeighborsDirections();
+
+                // если нет направлений - это лабиринт из одной пустой ячейки, лабиринт готов
+                if (neighborsDirections.Count == 0)
+                    break;
 
                 while (true)
                 {

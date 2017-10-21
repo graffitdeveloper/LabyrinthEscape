@@ -38,7 +38,6 @@ public class MainController : MonoBehaviour
             var labyrinth = LabyrinthGenerator.Instance.GenerateLabyrinth(_labWidth, _labHeight);
 
             _labyrinthView.DrawGrid(labyrinth);
-            labyrinth = null;
         }
     }
 

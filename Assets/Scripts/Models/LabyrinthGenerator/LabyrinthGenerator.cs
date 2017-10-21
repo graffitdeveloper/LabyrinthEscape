@@ -76,22 +76,24 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
             // список всех свободных ячеек
             var freeCells = grid.GetFreeCells();
 
-            // список всех единожды посещенных свободных ячеек
+            // список всех хотя-бы раз посещенных свободных ячеек
             var visitedCells = new List<GridCell>();
 
-            // стек-путь генерации ячеек
+            // стек-путь генерации ячеек (необходим для того, что бы если генерация зайдет в тупик - можно было
+            // вернуться назад, и добавить все возможные коридоры
             var path = new Stack<GridCell>();
 
-            // стартовую точку берем рандомно, и отмечаем её как посещенную и текущую, а так же добавляем её в
-            // пройденный путь
+            // стартовую ячейку берем рандомно из свободных, и отмечаем её как посещенную и текущую, а так же добавляем
+            // её в пройденный путь
             var currentCell = freeCells[Random.Range(0, freeCells.Count)];
-
             visitedCells.Add(currentCell);
             path.Push(currentCell);
 
-            for (int i = 0; i < 1000000; i++)
+            // запуск генерации коридоров. Будет происходить до тех пор, пока алгоритм не пройдется по всем свободным
+            // клеткам
+            do
             {
-                // получаем все существующие соседние ячейки от текущей
+                // все стороны, в которых есть свободные ячейки
                 var neighborsDirections = currentCell.GetNeighborsDirections();
 
                 while (true)
@@ -104,20 +106,29 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
                     var randomNearbyCell =
                         currentCell.GetNearbyCell(neighborsDirections[randomDirectionIndex]);
 
+                    // направление нам не подходит если:
+                    // 1. мы его уже посещали
+                    // 2. за прилегающей ячейкой - стена (нам ведь не хочется перепрыгнуть на стену)
+                    // 3. прилегающая ячейка - не стена (алгоритм ломает стены, а не ходит по пустому пространству)
                     if (visitedCells.Contains(randomNeighborCell)
                         || randomNeighborCell.CellType == CellType.Wall
                         || randomNearbyCell.CellType == CellType.EmptyCell)
                     {
+                        // удаляем это направление из списка возможных, и пробуем другие направления
                         neighborsDirections.RemoveAt(randomDirectionIndex);
+
+                        // если допустимых направлений не осталось - возвращаемся назад по стеку, проверяя попутно те
+                        // стены, которые мы пропустили раньше в силу выбора другого направления
                         if (neighborsDirections.Count == 0)
                         {
                             currentCell = path.Pop();
-
                             break;
                         }
                     }
                     else
                     {
+                        // направление нам подошло, ломаем стену, отмечаем бывшую стену, и следующую за ней ячейку как
+                        // посещенные и добавляем их в пройденный путь
                         randomNearbyCell.CellType = CellType.EmptyCell;
                         visitedCells.Add(randomNearbyCell);
                         freeCells.Add(randomNearbyCell);
@@ -129,10 +140,8 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
                         break;
                     }
                 }
-
-                if (freeCells.Count == visitedCells.Count)
-                    return;
-            }
+                // Когда количество свободных клеток совпадет с количеством посещенных - лабиринт готов
+            } while (freeCells.Count != visitedCells.Count);
         }
     }
 }

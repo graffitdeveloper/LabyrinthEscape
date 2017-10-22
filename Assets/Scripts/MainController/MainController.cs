@@ -1,6 +1,11 @@
-﻿using Assets.Scripts.LabyrinthElements;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Assets.Scripts.LabyrinthElements;
+using LabyrinthEscape.GridControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class MainController : MonoBehaviour
 {
@@ -35,10 +40,18 @@ public class MainController : MonoBehaviour
             else if (_labHeight % 2 == 0)
                 _labHeight--;
 
-            var labyrinth = LabyrinthGenerator.Instance.GenerateLabyrinth(_labWidth, _labHeight);
-
-            _labyrinthView.DrawGrid(labyrinth);
+            StartCoroutine(GenerateLabyrinth());
         }
+    }
+
+    public IEnumerator GenerateLabyrinth()
+    {
+        var labyrinth = new Grid();
+        labyrinth.Init(_labWidth, _labHeight);
+
+        yield return StartCoroutine(LabyrinthGenerator.Instance.GenerateLabyrinth(labyrinth));
+        _labyrinthView.DrawGrid(labyrinth);
+
     }
 
     #endregion

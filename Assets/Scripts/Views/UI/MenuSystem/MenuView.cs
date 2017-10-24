@@ -16,7 +16,7 @@ namespace LabyrinthEscape.MenuSystem
         /// предыдущим. Если же ничего не указывать, будет использоваться
         /// последнее переданное. Если и такого нету, коллбэк на пункт back
         /// просто скроет текущее меню</param>
-        public void Show(MenuView previousMenu = null)
+        public virtual void Show(MenuView previousMenu = null)
         {
             if (previousMenu != null)
             {
@@ -27,7 +27,7 @@ namespace LabyrinthEscape.MenuSystem
             gameObject.SetActive(true);
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
             gameObject.SetActive(false);
         }

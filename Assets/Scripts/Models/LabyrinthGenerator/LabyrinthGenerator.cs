@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using LabyrinthEscape.GridControls;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 namespace LabyrinthEscape.LabyrinthGeneratorControls
 {

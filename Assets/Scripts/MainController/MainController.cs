@@ -1,14 +1,12 @@
 ﻿using Assets.Scripts.LabyrinthElements;
+using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
+using LabyrinthEscape.Loader;
 using UnityEngine;
 
 public class MainController : MonoBehaviour
 {
     #region Layout
-
-    [SerializeField] private int _labWidth;
-
-    [SerializeField] private int _labHeight;
 
     [SerializeField] private LabyrinthView _labyrinthView;
 
@@ -16,29 +14,31 @@ public class MainController : MonoBehaviour
 
     #region Methods
 
-    /// <summary>
-    /// Initialization
-    /// </summary>
-    public void Update()
+    public void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // Подстраивает размеры сетки под допустимые: для правильной постройки сетки ширина и высота сетки должны быть
-            // с нечетной величиной, а так же больше или равны 3
-            if (_labWidth < 3)
-                _labWidth = 3;
-            else if (_labWidth % 2 == 0)
-                _labWidth--;
+        int gridSizeX = GameManager.Instance.ChosenGridSizeX;
+        int gridSizeY = GameManager.Instance.ChosenGridSizeY;
 
-            if (_labHeight < 3)
-                _labHeight = 3;
-            else if (_labHeight % 2 == 0)
-                _labHeight--;
+        // Подстраивает размеры сетки под допустимые: для правильной постройки сетки ширина и высота сетки должны быть
+        // с нечетной величиной, а так же больше или равны 3
+        if (gridSizeX < 3)
+            gridSizeX = 3;
+        else if (gridSizeX % 2 == 0)
+            gridSizeX--;
 
-            var labyrinth = LabyrinthGenerator.Instance.GenerateLabyrinth(_labWidth, _labHeight);
+        if (gridSizeY < 3)
+            gridSizeY = 3;
+        else if (gridSizeY % 2 == 0)
+            gridSizeY--;
 
-            _labyrinthView.DrawGrid(labyrinth);
-        }
+        var labyrinth = LabyrinthGenerator.Instance.GenerateLabyrinth(gridSizeX, gridSizeY);
+
+        LoaderView.SetProgress(0.7f);
+
+        _labyrinthView.DrawGrid(labyrinth);
+
+        LoaderView.SetProgress(1f);
+        LoaderView.Hide();
     }
 
     #endregion

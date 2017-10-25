@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using LabyrinthEscape.GameManagerControls;
+using LabyrinthEscape.Loader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,6 +28,9 @@ namespace LabyrinthEscape.MenuSystem
             GameManager.Instance.ChosenGridSizeX = chosenGridSizeX;
             GameManager.Instance.ChosenGridSizeY = chosenGridSizeY;
 
+            LoaderView.Show();
+            LoaderView.SetProgress(0f);
+
             StartCoroutine(LoadSceneAsync());
         }
 
@@ -36,6 +40,8 @@ namespace LabyrinthEscape.MenuSystem
 
             while (!asyncLoad.isDone)
                 yield return null;
+
+            LoaderView.SetProgress(0.2f);
         }
 
         public void OnPlayCustomButtonClicked()

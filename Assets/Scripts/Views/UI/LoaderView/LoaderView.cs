@@ -15,10 +15,7 @@ namespace LabyrinthEscape.Loader
 
         private static LoaderView Instance
         {
-            get
-            {
-                return _instance;
-            }
+            get { return _instance; }
         }
 
         #endregion
@@ -29,7 +26,7 @@ namespace LabyrinthEscape.Loader
 
         public void Awake()
         {
-            if(_instance != null)
+            if (_instance != null)
                 Debug.LogError("More than one instances of loader, be prepared for unexpected issues");
 
             _instance = this;
@@ -49,7 +46,7 @@ namespace LabyrinthEscape.Loader
         public static void SetProgress(float progressValue)
         {
             Instance._loaderSlider.value = progressValue;
-            Instance._currentProgressText.text = Mathf.RoundToInt(progressValue * 100).ToString();
+            Instance._currentProgressText.text = string.Format("{0}%", Mathf.RoundToInt(progressValue * 100));
         }
     }
 }

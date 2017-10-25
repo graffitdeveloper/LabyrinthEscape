@@ -42,11 +42,14 @@ public class MainController : MonoBehaviour
         var labyrinth = new Grid();
         labyrinth.Init(gridSizeX, gridSizeY);
 
-        LoaderView.Hide();
+        LoaderView.SetProgress(0.2f);
 
         yield return StartCoroutine(LabyrinthGenerator.Instance.GenerateLabyrinth(labyrinth));
 
+        LoaderView.SetProgress(1f);
         _labyrinthView.DrawGrid(labyrinth);
+
+        LoaderView.Hide();
     }
 
     #endregion

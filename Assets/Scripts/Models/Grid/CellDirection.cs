@@ -1,6 +1,6 @@
 ﻿namespace LabyrinthEscape.GridControls
 {
-    public enum Direction
+    public enum CellDirection
     {
         Up = 0,
         Right = 1,

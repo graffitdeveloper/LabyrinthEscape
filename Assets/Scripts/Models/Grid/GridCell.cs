@@ -50,18 +50,18 @@ namespace LabyrinthEscape.GridControls
         /// Возвращает прилегающую клетку. Прилегающая - значит та, что находится непосредственно рядом с текущей, не
         /// путать с соседней
         /// </summary>
-        /// <param name="direction">Направление, в котором ищем ячейку</param>
-        public GridCell GetNearbyCell(Direction direction)
+        /// <param name="cellDirection">Направление, в котором ищем ячейку</param>
+        public GridCell GetNearbyCell(CellDirection cellDirection)
         {
-            switch (direction)
+            switch (cellDirection)
             {
-                case Direction.Up:
+                case CellDirection.Up:
                     return _parentGrid.GetCell(PositionX, PositionY + 1);
-                case Direction.Right:
+                case CellDirection.Right:
                     return _parentGrid.GetCell(PositionX + 1, PositionY);
-                case Direction.Down:
+                case CellDirection.Down:
                     return _parentGrid.GetCell(PositionX, PositionY - 1);
-                case Direction.Left:
+                case CellDirection.Left:
                     return _parentGrid.GetCell(PositionX - 1, PositionY);
                 default:
                     return null;
@@ -71,19 +71,19 @@ namespace LabyrinthEscape.GridControls
         /// <summary>
         /// Возвращает соседнюю ячейку. Соседняя - значит та, что через стенку от текущей, не путать с прилегающей к
         /// текущей. Если ячейку в данном направлении нет - возвращает null
-        /// <param name="direction">Направление, в котором ищем ячейку</param>
+        /// <param name="cellDirection">Направление, в котором ищем ячейку</param>
         /// </summary>
-        public GridCell GetNeighbourCell(Direction direction)
+        public GridCell GetNeighbourCell(CellDirection cellDirection)
         {
-            switch (direction)
+            switch (cellDirection)
             {
-                case Direction.Up:
+                case CellDirection.Up:
                     return _parentGrid.GetCell(PositionX, PositionY + 2);
-                case Direction.Right:
+                case CellDirection.Right:
                     return _parentGrid.GetCell(PositionX + 2, PositionY);
-                case Direction.Down:
+                case CellDirection.Down:
                     return _parentGrid.GetCell(PositionX, PositionY - 2);
-                case Direction.Left:
+                case CellDirection.Left:
                     return _parentGrid.GetCell(PositionX - 2, PositionY);
                 default:
                     return null;
@@ -94,13 +94,13 @@ namespace LabyrinthEscape.GridControls
         /// Возвращает направления всех соседних ячеек. Соседняя - значит та, что через стенку от текущей, не путать с
         /// прилегающей к текущей. 
         /// </summary>
-        public List<Direction> GetNeighborsDirections()
+        public List<CellDirection> GetNeighborsDirections()
         {
-            var result = new List<Direction>();
+            var result = new List<CellDirection>();
 
-            for (int i = 0; i < Enum.GetNames(typeof(Direction)).Length; i++)
-                if (GetNeighbourCell((Direction) i) != null)
-                    result.Add((Direction) i);
+            for (int i = 0; i < Enum.GetNames(typeof(CellDirection)).Length; i++)
+                if (GetNeighbourCell((CellDirection) i) != null)
+                    result.Add((CellDirection) i);
 
             return result;
         }

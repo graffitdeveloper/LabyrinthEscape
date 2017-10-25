@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.Loader;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace LabyrinthEscape.MenuSystem
@@ -10,7 +9,7 @@ namespace LabyrinthEscape.MenuSystem
     {
         public void OnPlayEasyButtonClicked()
         {
-            StartGame(5, 43);
+            StartGame(30, 30);
         }
 
         public void OnPlayMediumButtonClicked()

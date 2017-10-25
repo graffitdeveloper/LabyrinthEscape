@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using LabyrinthEscape.GridControls;
 using UnityEngine;
 
 namespace LabyrinthEscape.LabyrinthGeneratorControls
 {
-    public class LabyrinthGenerator
+    public class LabyrinthGenerator : MonoBehaviour
     {
         #region Singleton
 
@@ -19,7 +20,10 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
             get
             {
                 if (_instance == null)
-                    _instance = new LabyrinthGenerator();
+                {
+                    var gameObject = new GameObject("LabyrinthGenerator");
+                    _instance = gameObject.AddComponent<LabyrinthGenerator>();
+                }
 
                 return _instance;
             }
@@ -30,32 +34,20 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
         /// <summary>
         /// Генерация лабиринта
         /// </summary>
-        /// <param name="width">Ширина лабиринта</param>
-        /// <param name="height">Высота лабиринта</param>
-        public Grid GenerateLabyrinth(int width, int height)
+        /// <param name="resultLabyrinth"></param>
+        public IEnumerator GenerateLabyrinth(Grid resultLabyrinth)
         {
-            var resultLabyrinth = CreateEmptyLabyrinth(width, height);
-            ModifyLabyrinthBlank(resultLabyrinth);
-            ModifyLabyrinthCreateRandomCoridors(resultLabyrinth);
-            return resultLabyrinth;
-        }
-
-        /// <summary>
-        /// Создает пустое поле из пола
-        /// </summary>
-        /// <param name="width">Ширина поля</param>
-        /// <param name="height">Высота поля</param>
-        private Grid CreateEmptyLabyrinth(int width, int height)
-        {
-            var grid = new Grid();
-            grid.Init(width, height);
-            return grid;
+            Debug.Log("Creating blank...");
+            yield return StartCoroutine(ModifyLabyrinthBlank(resultLabyrinth));
+            Debug.Log("Creating coridors...");
+            yield return StartCoroutine(ModifyLabyrinthCreateRandomCoridors(resultLabyrinth));
+            Debug.Log("Done!");
         }
 
         /// <summary>
         /// Генерирует заготовку лабиринта
         /// </summary>
-        private void ModifyLabyrinthBlank(Grid grid)
+        private IEnumerator ModifyLabyrinthBlank(Grid grid)
         {
             for (int y = 0; y < grid.Height; y++)
             {
@@ -67,11 +59,14 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
                         x++;
 
                     grid.SetCellStatus(x, y, CellType.Wall);
+
                 }
+
+                yield return null;
             }
         }
 
-        private void ModifyLabyrinthCreateRandomCoridors(Grid grid)
+        private IEnumerator ModifyLabyrinthCreateRandomCoridors(Grid grid)
         {
             // список всех свободных ячеек
             var freeCells = grid.GetFreeCells();
@@ -143,7 +138,11 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
 
                         break;
                     }
+
                 }
+
+                yield return null;
+
                 // Когда количество свободных клеток совпадет с количеством посещенных - лабиринт готов
             } while (freeCells.Count != visitedCells.Count);
         }

@@ -1,8 +1,10 @@
-﻿using Assets.Scripts.LabyrinthElements;
+﻿﻿using Assets.Scripts.LabyrinthElements;
 using LabyrinthEscape.GameManagerControls;
+using System.Collections;
+using LabyrinthEscape.GridControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
-using LabyrinthEscape.Loader;
-using UnityEngine;
+ using LabyrinthEscape.Loader;
+ using UnityEngine;
 
 public class MainController : MonoBehaviour
 {
@@ -15,6 +17,11 @@ public class MainController : MonoBehaviour
     #region Methods
 
     public void Start()
+    {
+        StartCoroutine(GenerateLabyrinth());
+    }
+
+    public IEnumerator GenerateLabyrinth()
     {
         int gridSizeX = GameManager.Instance.ChosenGridSizeX;
         int gridSizeY = GameManager.Instance.ChosenGridSizeY;
@@ -31,14 +38,15 @@ public class MainController : MonoBehaviour
         else if (gridSizeY % 2 == 0)
             gridSizeY--;
 
-        var labyrinth = LabyrinthGenerator.Instance.GenerateLabyrinth(gridSizeX, gridSizeY);
 
-        LoaderView.SetProgress(0.7f);
+        var labyrinth = new Grid();
+        labyrinth.Init(gridSizeX, gridSizeY);
+
+        LoaderView.Hide();
+
+        yield return StartCoroutine(LabyrinthGenerator.Instance.GenerateLabyrinth(labyrinth));
 
         _labyrinthView.DrawGrid(labyrinth);
-
-        LoaderView.SetProgress(1f);
-        LoaderView.Hide();
     }
 
     #endregion

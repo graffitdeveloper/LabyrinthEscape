@@ -40,7 +40,6 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
         {
             yield return StartCoroutine(ModifyLabyrinthBlank(resultLabyrinth));
             LoaderView.SetProgress(0.3f);
-
             yield return StartCoroutine(ModifyLabyrinthCreateRandomCoridors(resultLabyrinth));
         }
 
@@ -85,7 +84,7 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
         private IEnumerator ModifyLabyrinthCreateRandomCoridors(Grid grid)
         {
             var freeCellsInReadyLabyrinthCount = GetFreeCellsCount(grid);
-            var yieldsCount = 15;
+            var yieldsCount = 20;
             var currentYield = 0;
 
             // список всех свободных ячеек
@@ -117,6 +116,8 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
 
                 while (true)
                 {
+                    // Отображение прогресса генерации (т.к. создание лабиринта - самая тажелая фича в игре, делим
+                    // постройку на несколько yield'ов)
                     if (currentYield < yieldsCount)
                     {
                         var percentageDoneVisitedCells = visitedCells.Count / (float) freeCellsInReadyLabyrinthCount;
@@ -171,9 +172,7 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
 
                         break;
                     }
-
                 }
-
 
                 // Когда количество свободных клеток совпадет с количеством посещенных - лабиринт готов
             } while (freeCells.Count != visitedCells.Count);

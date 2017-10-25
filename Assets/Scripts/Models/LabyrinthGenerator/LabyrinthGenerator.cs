@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using LabyrinthEscape.GridControls;
+using LabyrinthEscape.Loader;
 using UnityEngine;
 
 namespace LabyrinthEscape.LabyrinthGeneratorControls
@@ -37,11 +38,10 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
         /// <param name="resultLabyrinth"></param>
         public IEnumerator GenerateLabyrinth(Grid resultLabyrinth)
         {
-            Debug.Log("Creating blank...");
             yield return StartCoroutine(ModifyLabyrinthBlank(resultLabyrinth));
-            Debug.Log("Creating coridors...");
+            LoaderView.SetProgress(0.3f);
+
             yield return StartCoroutine(ModifyLabyrinthCreateRandomCoridors(resultLabyrinth));
-            Debug.Log("Done!");
         }
 
         /// <summary>
@@ -59,15 +59,35 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
                         x++;
 
                     grid.SetCellStatus(x, y, CellType.Wall);
-
                 }
-
-                yield return null;
             }
+
+            // для того что бы отрисовать прогресс
+            yield return new WaitForEndOfFrame();
+        }
+
+        /// <summary>
+        /// Расчет итогового количества свободных ячеек в готовом лабиринте.
+        /// Количество свободных в итоге ячеек определяет не позиция ячеек, а размер сетки, поэтому мы можем при помощи
+        /// формулы расчитать, сколько ячеек будет в итоге свободными, зная только о размерах будущего лабиринта. Это
+        /// Полезно при отображении прогресса генерации
+        /// </summary>
+        /// <param name="grid">Сетка, из которой будет генерироваться лабиринт</param>
+        private int GetFreeCellsCount(Grid grid)
+        {
+            int countPossibleCellsInRow = grid.Width - 2;
+            int countPossibleRows = (grid.Height - 1) / 2;
+            int countTunnelsBetweenRows = countPossibleRows - 1;
+
+            return countPossibleCellsInRow * countPossibleRows + countTunnelsBetweenRows;
         }
 
         private IEnumerator ModifyLabyrinthCreateRandomCoridors(Grid grid)
         {
+            var freeCellsInReadyLabyrinthCount = GetFreeCellsCount(grid);
+            var yieldsCount = 15;
+            var currentYield = 0;
+
             // список всех свободных ячеек
             var freeCells = grid.GetFreeCells();
 
@@ -97,6 +117,19 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
 
                 while (true)
                 {
+                    if (currentYield < yieldsCount)
+                    {
+                        var percentageDoneVisitedCells = visitedCells.Count / (float) freeCellsInReadyLabyrinthCount;
+                        var percentageDoneYields = currentYield / (float) yieldsCount;
+
+                        if (percentageDoneVisitedCells > percentageDoneYields)
+                        {
+                            currentYield++;
+                            LoaderView.SetProgress(0.2f + 0.8f * visitedCells.Count / freeCellsInReadyLabyrinthCount);
+                            yield return null;
+                        }
+                    }
+
                     // выбираем рандомно одну из возможных сторон направления к соседней ячейке
                     int randomDirectionIndex = Random.Range(0, neighborsDirections.Count);
 
@@ -141,7 +174,6 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
 
                 }
 
-                yield return null;
 
                 // Когда количество свободных клеток совпадет с количеством посещенных - лабиринт готов
             } while (freeCells.Count != visitedCells.Count);

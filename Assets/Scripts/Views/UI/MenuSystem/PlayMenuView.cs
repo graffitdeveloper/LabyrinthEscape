@@ -10,7 +10,7 @@ namespace LabyrinthEscape.MenuSystem
     {
         public void OnPlayEasyButtonClicked()
         {
-            StartGame(30, 30);
+            StartGame(5, 43);
         }
 
         public void OnPlayMediumButtonClicked()
@@ -41,7 +41,7 @@ namespace LabyrinthEscape.MenuSystem
             while (!asyncLoad.isDone)
                 yield return null;
 
-            LoaderView.SetProgress(0.2f);
+            LoaderView.SetProgress(0.1f);
         }
 
         public void OnPlayCustomButtonClicked()

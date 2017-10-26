@@ -84,4 +84,8 @@ MonoBehaviour:
     type: 2}
   _floorViewPrefab: {fileID: 114821483378560584, guid: 52864fce17907bd4d96aec179dbee40b,
     type: 2}
+  _spawnViewPrefab: {fileID: 114538127058755626, guid: adfc0ec1e8dad954c996223598e5256f,
+    type: 2}
+  _finishViewPrefab: {fileID: 114715217847811510, guid: 66dd900200b98094f8eb92fcf9e17b87,
+    type: 2}
   _labyrinthElementsContainer: {fileID: 4912693085078254}

@@ -53,6 +53,11 @@ namespace LabyrinthEscape.PlayerControls
 
         #region Methods
 
+        public void Spawn()
+        {
+            
+        }
+
         /// <summary>
         /// Инициализация
         /// </summary>

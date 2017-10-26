@@ -4,10 +4,7 @@
     {
         protected override string ElementName
         {
-            get
-            {
-                return "FloorView";
-            }
+            get { return "FloorView"; }
         }
     }
 }

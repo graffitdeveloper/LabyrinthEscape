@@ -13,6 +13,11 @@ namespace Assets.Scripts.LabyrinthElements
 
         [SerializeField] private FloorView _floorViewPrefab;
 
+        [SerializeField] private SpawnView _spawnViewPrefab;
+
+        [SerializeField] private FinishView _finishViewPrefab;
+
+
         [SerializeField] private Transform _labyrinthElementsContainer;
 
         #endregion
@@ -51,11 +56,15 @@ namespace Assets.Scripts.LabyrinthElements
                         break;
 
                     case CellType.SpawnPoint:
-
+                        var newSpawn = Instantiate(_spawnViewPrefab, _labyrinthElementsContainer);
+                        _labyrinthElements.Add(newSpawn);
+                        newSpawn.Position = new Vector3(x, y);
                         break;
 
                     case CellType.FinishPoint:
-
+                        var newFinishPoint = Instantiate(_finishViewPrefab, _labyrinthElementsContainer);
+                        _labyrinthElements.Add(newFinishPoint);
+                        newFinishPoint.Position = new Vector3(x, y);
                         break;
                 }
             }

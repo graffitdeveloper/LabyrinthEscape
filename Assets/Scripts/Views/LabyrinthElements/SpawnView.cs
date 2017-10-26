@@ -1,10 +1,10 @@
 ﻿namespace LabyrinthEscape.LabyrinthElements
 {
-    public class WallView : LabyrinthElementView
+    public class SpawnView : LabyrinthElementView
     {
         protected override string ElementName
         {
-            get { return "WallView"; }
+            get { return "SpawnView"; }
         }
     }
 }

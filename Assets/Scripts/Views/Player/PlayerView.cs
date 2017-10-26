@@ -7,7 +7,7 @@ namespace LabyrinthEscape.PlayerControls
     /// <summary>
     /// Скрипт игрока
     /// </summary>
-    public class Player : MonoBehaviour
+    public class PlayerView : MonoBehaviour
     {
         #region Layout
 
@@ -116,6 +116,8 @@ namespace LabyrinthEscape.PlayerControls
                 case InputDirection.None:
 
                     PlayStayAnimation();
+                    _spriteRenderer.flipX = false;
+                    transform.localRotation = Quaternion.identity;
                     _rigidbody2D.velocity = Vector2.zero;
 
                     break;

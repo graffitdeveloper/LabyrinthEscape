@@ -1,9 +1,11 @@
 ﻿﻿using Assets.Scripts.LabyrinthElements;
 using LabyrinthEscape.GameManagerControls;
 using System.Collections;
+using LabyrinthEscape.CameraControls;
 using LabyrinthEscape.GridControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
- using LabyrinthEscape.Loader;
+using LabyrinthEscape.Loader;
+ using LabyrinthEscape.PlayerControls;
  using UnityEngine;
 
 public class MainController : MonoBehaviour
@@ -11,6 +13,10 @@ public class MainController : MonoBehaviour
     #region Layout
 
     [SerializeField] private LabyrinthView _labyrinthView;
+
+    [SerializeField] private CameraView _cameraView;
+
+    [SerializeField] private PlayerView _playerView;
 
     #endregion
 
@@ -48,6 +54,8 @@ public class MainController : MonoBehaviour
 
         LoaderView.SetProgress(1f);
         _labyrinthView.DrawGrid(labyrinth);
+
+        _cameraView.SetToPlayer(_playerView.transform);
 
         LoaderView.Hide();
     }

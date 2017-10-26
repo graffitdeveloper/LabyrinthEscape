@@ -40,6 +40,7 @@ namespace LabyrinthEscape.CameraControls
         public void SetToPlayer(Transform playerTransform)
         {
             _playerTransform = playerTransform;
+            transform.position = playerTransform.position;
         }
 
         public void Update()

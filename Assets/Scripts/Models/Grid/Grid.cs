@@ -44,8 +44,8 @@ namespace LabyrinthEscape.GridControls
             _gridCells = new GridCell[Width, Height];
 
             for (int y = 0; y < Height; y++)
-                for (int x = 0; x < Width; x++)
-                    _gridCells[x, y] = new GridCell(this, CellType.EmptyCell, x, y);
+            for (int x = 0; x < Width; x++)
+                _gridCells[x, y] = new GridCell(this, CellType.EmptyCell, x, y);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace LabyrinthEscape.GridControls
             if (x >= Width || y >= Height)
                 throw new System.Exception(
                     string.Format("Sorry, but cell is out of range! x:{0}, y:{1}, width:{2}, height:{3}", x, y, Width,
-                    Height));
+                        Height));
 
             _gridCells[x, y].CellType = newStatus;
         }
@@ -89,6 +89,18 @@ namespace LabyrinthEscape.GridControls
                         result.Add(_gridCells[x, y]);
 
             return result;
+        }
+
+        public GridCell GetSpawnPoint()
+        {
+            for (int y = 0; y < Height; y++)
+                for (int x = 0; x < Width; x++)
+                {
+                    if (_gridCells[x, y].CellType == CellType.SpawnPoint)
+                        return _gridCells[x, y];
+                }
+
+            return null;
         }
     }
 }

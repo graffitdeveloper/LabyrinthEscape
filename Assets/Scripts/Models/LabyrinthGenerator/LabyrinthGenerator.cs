@@ -41,6 +41,41 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
             yield return StartCoroutine(ModifyLabyrinthBlank(resultLabyrinth));
             LoaderView.SetProgress(0.3f);
             yield return StartCoroutine(ModifyLabyrinthCreateRandomCoridors(resultLabyrinth));
+
+            ModifyLabyrinthAddSpawnAndExit(resultLabyrinth);
+        }
+
+        private void ModifyLabyrinthAddSpawnAndExit(Grid grid)
+        {
+            var outsideWalls = new List<GridCell>();
+
+            for (int y = 0; y < grid.Height; y++)
+            {
+                for (int x = 0; x < grid.Width; x++)
+                {
+                    // левая и правая стороны
+                    if (y != 0 && y != grid.Height - 1)
+                    {
+                        if (x == 0)
+                            outsideWalls.Add(grid.GetCell(x, y));
+                        else if (x == grid.Width - 1)
+                            outsideWalls.Add(grid.GetCell(x, y));
+                    }
+                    // нижняя и верхняя стороны
+                    else if (x != 0 && x != grid.Width - 1)
+                    {
+                        if (y == 0)
+                            outsideWalls.Add(grid.GetCell(x, y));
+                        else if (y == grid.Height - 1)
+                            outsideWalls.Add(grid.GetCell(x, y));
+                    }
+                }
+            }
+
+            outsideWalls[Random.Range(0, outsideWalls.Count)].CellType = CellType.FinishPoint;
+
+            var trueCenterPoint = grid.GetCell(grid.Width / 2, grid.Height / 2);
+            trueCenterPoint.CellType = CellType.SpawnPoint;
         }
 
         /// <summary>

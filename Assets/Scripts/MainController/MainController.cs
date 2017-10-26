@@ -55,6 +55,7 @@ public class MainController : MonoBehaviour
         LoaderView.SetProgress(1f);
         _labyrinthView.DrawGrid(labyrinth);
 
+        _playerView.Spawn(labyrinth.GetSpawnPoint());
         _cameraView.SetToPlayer(_playerView.transform);
 
         LoaderView.Hide();

@@ -1,4 +1,5 @@
 ﻿using System;
+using LabyrinthEscape.GridControls;
 using LabyrinthEscape.InputControls;
 using UnityEngine;
 
@@ -49,14 +50,11 @@ namespace LabyrinthEscape.PlayerControls
         /// </summary>
         private bool _isCatStay = true;
 
+        private bool _isMovedOnce = false;
+
         #endregion
 
         #region Methods
-
-        public void Spawn()
-        {
-            
-        }
 
         /// <summary>
         /// Инициализация
@@ -119,8 +117,10 @@ namespace LabyrinthEscape.PlayerControls
                     break;
 
                 case InputDirection.None:
-
-                    PlayStayAnimation();
+                    if (_isMovedOnce)
+                        PlayStayAnimation();
+                    else
+                        PlaySleepAnimation();
                     _spriteRenderer.flipX = false;
                     transform.localRotation = Quaternion.identity;
                     _rigidbody2D.velocity = Vector2.zero;
@@ -130,6 +130,14 @@ namespace LabyrinthEscape.PlayerControls
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        /// <summary>
+        /// Включение анимации стояния
+        /// </summary>
+        private void PlaySleepAnimation()
+        {
+            _animation.Play("Cat_Sleeping");
         }
 
         /// <summary>
@@ -150,10 +158,18 @@ namespace LabyrinthEscape.PlayerControls
         {
             if (!_isCatStay) return;
 
+            _isMovedOnce = true;
+
             _isCatStay = false;
             _animation.Play("Cat_Walk");
         }
 
         #endregion
+
+        public void Spawn(GridCell gridCell)
+        {
+            transform.position = new Vector3(gridCell.PositionX, gridCell.PositionY, 0);
+            _isMovedOnce = false;
+        }
     }
 }

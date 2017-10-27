@@ -26,5 +26,11 @@
         public int ChosenGridSizeX;
 
         public int ChosenGridSizeY;
+
+        public bool IsGameStarted = false;
+
+        public bool IsGameFinished = false;
+
+        public bool IsGamePaused = false;
     }
 }

@@ -27,12 +27,17 @@ namespace LabyrinthEscape.MenuSystem
             gameObject.SetActive(true);
         }
 
+        public virtual void ShowWithoutParamethers()
+        {
+            gameObject.SetActive(true);
+        }
+
         public virtual void Hide()
         {
             gameObject.SetActive(false);
         }
 
-        public void OnBackButtonClicked()
+        public virtual void OnBackButtonClicked()
         {
             if (_previousMenu != null)
                 _previousMenu.Show();

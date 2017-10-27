@@ -1,4 +1,5 @@
 ﻿using System;
+using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.GridControls;
 using LabyrinthEscape.InputControls;
 using UnityEngine;
@@ -56,10 +57,6 @@ namespace LabyrinthEscape.PlayerControls
         /// </summary>
         private bool _isCatStay = true;
 
-        private bool _isMovedOnce = false;
-
-        private bool _isFinished = false;
-
         #endregion
 
         #region Methods
@@ -86,12 +83,22 @@ namespace LabyrinthEscape.PlayerControls
         /// </summary>
         private void MoveByControls()
         {
-            if (_isFinished)
+            if (GameManager.Instance.IsGamePaused)
+            {
+                _rigidbody2D.velocity = Vector2.zero;
+                _pawSpawner.Enabled = false;
+                return;
+            }
+
+            if (GameManager.Instance.IsGameFinished)
             {
                 _rigidbody2D.velocity = Vector2.Lerp(_rigidbody2D.velocity, Vector2.zero, 3 * Time.deltaTime);
                 transform.localRotation = Quaternion.identity;
                 return;
             }
+
+            if(!_pawSpawner.Enabled)
+                _pawSpawner.Enabled = true;
 
             switch (InputController.Instance.CurrentMovingDirection)
             {
@@ -132,7 +139,7 @@ namespace LabyrinthEscape.PlayerControls
                     break;
 
                 case InputDirection.None:
-                    if (_isMovedOnce)
+                    if (GameManager.Instance.IsGameStarted)
                         PlayStayAnimation();
                     else
                         PlaySleepAnimation();
@@ -150,10 +157,10 @@ namespace LabyrinthEscape.PlayerControls
         private void OnTriggerEnter2D(Collider2D collider)
         {
             if (collider.tag == "FinishCell")
-                if (!_isFinished)
+                if (!GameManager.Instance.IsGameFinished)
                 {
                     _pawSpawner.Enabled = false;
-                    _isFinished = true;
+                    GameManager.Instance.IsGameFinished = true;
                     transform.localRotation = Quaternion.identity;
 
                     PlayYeahAnimation();
@@ -189,7 +196,7 @@ namespace LabyrinthEscape.PlayerControls
         {
             if (!_isCatStay) return;
 
-            _isMovedOnce = true;
+            GameManager.Instance.IsGameStarted = true;
 
             _isCatStay = false;
             _animation.Play("Cat_Walk");
@@ -207,9 +214,9 @@ namespace LabyrinthEscape.PlayerControls
             _pawSpawner.Enabled = true;
             _pawSpawner.ClearCurrentPaws();
 
-            _isFinished = false;
+            GameManager.Instance.IsGameFinished = false;
             transform.position = new Vector3(gridCell.PositionX, gridCell.PositionY, 0);
-            _isMovedOnce = false;
+            GameManager.Instance.IsGameStarted = false;
         }
     }
 }

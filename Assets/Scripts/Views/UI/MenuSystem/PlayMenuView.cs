@@ -9,17 +9,17 @@ namespace LabyrinthEscape.MenuSystem
     {
         public void OnPlayEasyButtonClicked()
         {
-            StartGame(30, 30);
+            StartGame(15, 15);
         }
 
         public void OnPlayMediumButtonClicked()
         {
-            StartGame(60, 60);
+            StartGame(30, 30);
         }
 
         public void OnPlayHardButtonClicked()
         {
-            StartGame(90, 90);
+            StartGame(50, 50);
         }
 
         private void StartGame(int chosenGridSizeX, int chosenGridSizeY)

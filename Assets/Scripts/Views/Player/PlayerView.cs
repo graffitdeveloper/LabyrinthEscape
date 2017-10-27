@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace LabyrinthEscape.PlayerControls
 {
+    public delegate void OnPlayerFinishedLabyrinth();
+
     /// <summary>
     /// Скрипт игрока
     /// </summary>
@@ -29,11 +31,15 @@ namespace LabyrinthEscape.PlayerControls
         /// </summary>
         [SerializeField] private Animation _animation;
 
+        [SerializeField] private PawSpawner _pawSpawner;
+
 #pragma warning restore 649
 
         #endregion
 
         #region Fields
+
+        public OnPlayerFinishedLabyrinth OnPlayerFinishedLabyrinth;
 
         /// <summary>
         /// Физика
@@ -51,6 +57,8 @@ namespace LabyrinthEscape.PlayerControls
         private bool _isCatStay = true;
 
         private bool _isMovedOnce = false;
+
+        private bool _isFinished = false;
 
         #endregion
 
@@ -78,6 +86,13 @@ namespace LabyrinthEscape.PlayerControls
         /// </summary>
         private void MoveByControls()
         {
+            if (_isFinished)
+            {
+                _rigidbody2D.velocity = Vector2.Lerp(_rigidbody2D.velocity, Vector2.zero, 3 * Time.deltaTime);
+                transform.localRotation = Quaternion.identity;
+                return;
+            }
+
             switch (InputController.Instance.CurrentMovingDirection)
             {
                 case InputDirection.Up:
@@ -132,6 +147,22 @@ namespace LabyrinthEscape.PlayerControls
             }
         }
 
+        private void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.tag == "FinishCell")
+                if (!_isFinished)
+                {
+                    _pawSpawner.Enabled = false;
+                    _isFinished = true;
+                    transform.localRotation = Quaternion.identity;
+
+                    PlayYeahAnimation();
+
+                    if (OnPlayerFinishedLabyrinth != null)
+                        OnPlayerFinishedLabyrinth();
+                }
+        }
+
         /// <summary>
         /// Включение анимации стояния
         /// </summary>
@@ -164,10 +195,19 @@ namespace LabyrinthEscape.PlayerControls
             _animation.Play("Cat_Walk");
         }
 
+        private void PlayYeahAnimation()
+        {
+            _animation.Play("Cat_Yeah");
+        }
+
         #endregion
 
         public void Spawn(GridCell gridCell)
         {
+            _pawSpawner.Enabled = true;
+            _pawSpawner.ClearCurrentPaws();
+
+            _isFinished = false;
             transform.position = new Vector3(gridCell.PositionX, gridCell.PositionY, 0);
             _isMovedOnce = false;
         }

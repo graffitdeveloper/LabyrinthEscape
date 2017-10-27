@@ -55,10 +55,21 @@ public class MainController : MonoBehaviour
         LoaderView.SetProgress(1f);
         _labyrinthView.DrawGrid(labyrinth);
 
+        _cameraView.ReactToControls = true;
         _playerView.Spawn(labyrinth.GetSpawnPoint());
+        _playerView.OnPlayerFinishedLabyrinth += OnPlayerFinishedLabyrinth;
         _cameraView.SetToPlayer(_playerView.transform);
 
         LoaderView.Hide();
+    }
+
+    public void OnPlayerFinishedLabyrinth()
+    {
+        _playerView.OnPlayerFinishedLabyrinth = null;
+        _cameraView.ReactToControls = false;
+
+        //todo
+
     }
 
     #endregion

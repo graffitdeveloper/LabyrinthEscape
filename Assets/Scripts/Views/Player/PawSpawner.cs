@@ -1,4 +1,5 @@
-﻿using LabyrinthEscape.InputControls;
+﻿using System.Collections.Generic;
+using LabyrinthEscape.InputControls;
 using UnityEngine;
 
 namespace LabyrinthEscape.PlayerControls
@@ -26,6 +27,20 @@ namespace LabyrinthEscape.PlayerControls
         private float _pawSpawnCurrentTime;
         private bool _isLeftPaw;
 
+        private List<GameObject> _paws = new List<GameObject>();
+
+        private bool _enabled;
+
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set
+            {
+                _enabled = value;
+                _dustParticles.Stop();
+            }
+        }
+
         private void Awake()
         {
             _pawSpawnCurrentTime = _pawSpawnTickTime;
@@ -33,6 +48,8 @@ namespace LabyrinthEscape.PlayerControls
 
         public void Update()
         {
+            if(!Enabled) return;
+
             _pawSpawnCurrentTime -= Time.deltaTime;
             if (_pawSpawnCurrentTime <= 0)
             {
@@ -113,8 +130,15 @@ namespace LabyrinthEscape.PlayerControls
                 Random.Range(-_pawsRandomizePosition, _pawsRandomizePosition),
                 Random.Range(-_pawsRandomizePosition, _pawsRandomizePosition), 0);
 
-            Instantiate(_pawPrefab, pawPosition, pawRotation, _pawsContainer);
+            _paws.Add(Instantiate(_pawPrefab, pawPosition, pawRotation, _pawsContainer));
+
             _isLeftPaw = !_isLeftPaw;
+        }
+
+        public void ClearCurrentPaws()
+        {
+            foreach (var paw in _paws)
+                Destroy(paw.gameObject);
         }
     }
 }

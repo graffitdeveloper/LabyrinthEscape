@@ -57,17 +57,30 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
                     if (y != 0 && y != grid.Height - 1)
                     {
                         if (x == 0)
-                            outsideWalls.Add(grid.GetCell(x, y));
+                        {
+                            // предусматриваем, что бы финишной ячейкой не выбрать ту, что стоит вплотную к внутренней стене
+                            if (grid.GetCell(x + 1, y).CellType == CellType.EmptyCell)
+                                outsideWalls.Add(grid.GetCell(x, y));
+                        }
                         else if (x == grid.Width - 1)
-                            outsideWalls.Add(grid.GetCell(x, y));
+                        {
+                            if (grid.GetCell(x - 1, y).CellType == CellType.EmptyCell)
+                                outsideWalls.Add(grid.GetCell(x, y));
+                        }
                     }
                     // нижняя и верхняя стороны
                     else if (x != 0 && x != grid.Width - 1)
                     {
                         if (y == 0)
-                            outsideWalls.Add(grid.GetCell(x, y));
+                        {
+                            if (grid.GetCell(x, y + 1).CellType == CellType.EmptyCell)
+                                outsideWalls.Add(grid.GetCell(x, y));
+                        }
                         else if (y == grid.Height - 1)
-                            outsideWalls.Add(grid.GetCell(x, y));
+                        {
+                            if (grid.GetCell(x, y - 1).CellType == CellType.EmptyCell)
+                                outsideWalls.Add(grid.GetCell(x, y));
+                        }
                     }
                 }
             }

@@ -29,6 +29,7 @@ namespace LabyrinthEscape.CameraControls
         private float _cachedCameraOrtho;
 
         private Camera _thisCamera;
+        public bool ReactToControls { get; set; }
 
         public void Awake()
         {
@@ -50,29 +51,32 @@ namespace LabyrinthEscape.CameraControls
             var cameraTargetPosition = new Vector3(_playerTransform.position.x, _playerTransform.position.y,
                 _cachedCameraZPosition);
 
-            switch (InputController.Instance.CurrentMovingDirection)
+            if (ReactToControls)
             {
-                case InputDirection.Up:
-                    cameraTargetPosition += new Vector3(0, _cameraDirectionOffset, 0);
-                    break;
+                switch (InputController.Instance.CurrentMovingDirection)
+                {
+                    case InputDirection.Up:
+                        cameraTargetPosition += new Vector3(0, _cameraDirectionOffset, 0);
+                        break;
 
-                case InputDirection.Right:
-                    cameraTargetPosition += new Vector3(_cameraDirectionOffset, 0, 0);
-                    break;
+                    case InputDirection.Right:
+                        cameraTargetPosition += new Vector3(_cameraDirectionOffset, 0, 0);
+                        break;
 
-                case InputDirection.Down:
-                    cameraTargetPosition += new Vector3(0, -_cameraDirectionOffset, 0);
-                    break;
+                    case InputDirection.Down:
+                        cameraTargetPosition += new Vector3(0, -_cameraDirectionOffset, 0);
+                        break;
 
-                case InputDirection.Left:
-                    cameraTargetPosition += new Vector3(-_cameraDirectionOffset, 0, 0);
-                    break;
+                    case InputDirection.Left:
+                        cameraTargetPosition += new Vector3(-_cameraDirectionOffset, 0, 0);
+                        break;
 
-                case InputDirection.None:
-                    break;
+                    case InputDirection.None:
+                        break;
 
-                default:
-                    throw new ArgumentOutOfRangeException();
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
 
             transform.position = Vector3.Lerp(transform.position, cameraTargetPosition, _cameraSpeed * Time.deltaTime);
@@ -81,10 +85,18 @@ namespace LabyrinthEscape.CameraControls
 
         private void SetOrtho()
         {
-            _thisCamera.orthographicSize = Mathf.Lerp(_thisCamera.orthographicSize,
-                InputController.Instance.CurrentMovingDirection == InputDirection.None
-                    ? _cachedCameraOrtho
-                    : _cameraWalkOrthoValue, _cameraOrthoChangeSpeed * Time.deltaTime);
+            if (ReactToControls)
+            {
+                _thisCamera.orthographicSize = Mathf.Lerp(_thisCamera.orthographicSize,
+                    InputController.Instance.CurrentMovingDirection == InputDirection.None
+                        ? _cachedCameraOrtho
+                        : _cameraWalkOrthoValue, _cameraOrthoChangeSpeed * Time.deltaTime);
+            }
+            else
+            {
+                _thisCamera.orthographicSize = Mathf.Lerp(_thisCamera.orthographicSize,
+                    _cachedCameraOrtho, _cameraOrthoChangeSpeed * Time.deltaTime);
+            }
         }
     }
 }

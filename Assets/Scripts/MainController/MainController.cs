@@ -5,8 +5,8 @@ using LabyrinthEscape.CameraControls;
 using LabyrinthEscape.GridControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
 using LabyrinthEscape.Loader;
- using LabyrinthEscape.PlayerControls;
- using UnityEngine;
+using LabyrinthEscape.PlayerControls;
+using UnityEngine;
 
 public class MainController : MonoBehaviour
 {

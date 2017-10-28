@@ -1,4 +1,5 @@
 ﻿using LabyrinthEscape.GameManagerControls;
+using LabyrinthEscape.LabyrinthGeneratorControls;
 
 namespace LabyrinthEscape.MenuSystem
 {
@@ -20,7 +21,7 @@ namespace LabyrinthEscape.MenuSystem
 
         public void OnYesButtonClicked()
         {
-            
+            SceneChanger.Instance.LoadGameScene();
         }
     }
 }

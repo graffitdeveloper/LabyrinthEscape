@@ -24,10 +24,15 @@ namespace LabyrinthEscape.Loader
 
         [SerializeField] private Slider _loaderSlider;
 
+        [SerializeField] private Canvas _loaderCanvas;
+
         public void Awake()
         {
             if (_instance != null)
-                Debug.LogError("More than one instances of loader, be prepared for unexpected issues");
+            {
+                Destroy(_loaderCanvas.gameObject);
+                return;
+            }
 
             _instance = this;
             Hide();
@@ -40,6 +45,7 @@ namespace LabyrinthEscape.Loader
 
         public static void Show()
         {
+            Instance._loaderSlider.gameObject.SetActive(true);
             Instance.gameObject.SetActive(true);
         }
 

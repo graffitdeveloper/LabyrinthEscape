@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 114227646501594408}
   - component: {fileID: 95143955431164614}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: PauseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1020,7 +1020,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Back
+  m_Text: pause
 --- !u!222 &222011645888592584
 CanvasRenderer:
   m_ObjectHideFlags: 1

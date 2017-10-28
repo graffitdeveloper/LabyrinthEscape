@@ -1,4 +1,6 @@
-﻿namespace LabyrinthEscape.GameManagerControls
+﻿using LabyrinthEscape.Loader;
+
+namespace LabyrinthEscape.GameManagerControls
 {
     public class GameManager
     {

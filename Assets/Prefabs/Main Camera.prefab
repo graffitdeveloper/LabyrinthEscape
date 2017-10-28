@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2b399b7190fe54d8fe777a9ee8df85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraSpeed: 1
+  _cameraSpeed: 1.5
   _cameraDirectionOffset: 3
   _cameraOrthoChangeSpeed: 1
   _cameraWalkOrthoValue: 3

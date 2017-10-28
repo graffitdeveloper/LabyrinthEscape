@@ -214,9 +214,11 @@ namespace LabyrinthEscape.PlayerControls
             _pawSpawner.Enabled = true;
             _pawSpawner.ClearCurrentPaws();
 
+            GameManager.Instance.IsGamePaused = false;
             GameManager.Instance.IsGameFinished = false;
-            transform.position = new Vector3(gridCell.PositionX, gridCell.PositionY, 0);
             GameManager.Instance.IsGameStarted = false;
+
+            transform.position = new Vector3(gridCell.PositionX, gridCell.PositionY, 0);
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using LabyrinthEscape.GameManagerControls;
-using LabyrinthEscape.Loader;
+using LabyrinthEscape.LabyrinthGeneratorControls;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace LabyrinthEscape.HudView
@@ -61,38 +59,12 @@ namespace LabyrinthEscape.HudView
 
         public void OnRetryPressed()
         {
-            LoaderView.Show();
-            LoaderView.SetProgress(0f);
-
-            StartCoroutine(ReloadSceneAsync());
-        }
-
-        IEnumerator ReloadSceneAsync()
-        {
-            var asyncLoad = SceneManager.LoadSceneAsync("Game");
-
-            while (!asyncLoad.isDone)
-                yield return null;
-
-            LoaderView.SetProgress(0.1f);
+            SceneChanger.Instance.LoadGameScene();
         }
 
         public void OnMainMenuButtonPressed()
         {
-            LoaderView.Show();
-            LoaderView.SetProgress(0f);
-
-            StartCoroutine(LoadMainMenuAsync());
-        }
-
-        IEnumerator LoadMainMenuAsync()
-        {
-            var asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
-
-            while (!asyncLoad.isDone)
-                yield return null;
-
-            LoaderView.SetProgress(0.1f);
+            SceneChanger.Instance.LoadMainScene();
         }
     }
 }

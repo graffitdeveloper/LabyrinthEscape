@@ -30,27 +30,26 @@ public class GameSceneController : MonoBehaviour
 
     public IEnumerator GenerateLabyrinth()
     {
-        var gridSizeX = 0;
-        var gridSizeY = 0;
+        int gridWidth;
+        int gridHeight;
 
         switch (GameManager.Instance.CurrentGameType)
         {
             case GameType.Easy:
-                gridSizeX = 15;
-                gridSizeY = 15;
+                gridWidth = gridHeight = 15;
                 break;
 
             case GameType.Medium:
-                gridSizeX = 30;
-                gridSizeY = 30;
+                gridWidth = gridHeight = 30;
                 break;
 
             case GameType.Hard:
-                gridSizeX = 50;
-                gridSizeY = 50;
+                gridWidth = gridHeight = 50;
                 break;
 
             case GameType.Custom:
+                gridWidth = GameManager.Instance.CustomGameFieldWidth;
+                gridHeight = GameManager.Instance.CustomGameFieldHeight;
                 break;
 
             default:
@@ -59,18 +58,18 @@ public class GameSceneController : MonoBehaviour
         
         // Подстраивает размеры сетки под допустимые: для правильной постройки сетки ширина и высота сетки должны быть
         // с нечетной величиной, а так же больше или равны 3
-        if (gridSizeX < 3)
-            gridSizeX = 3;
-        else if (gridSizeX % 2 == 0)
-            gridSizeX--;
+        if (gridWidth < 3)
+            gridWidth = 3;
+        else if (gridWidth % 2 == 0)
+            gridWidth--;
 
-        if (gridSizeY < 3)
-            gridSizeY = 3;
-        else if (gridSizeY % 2 == 0)
-            gridSizeY--;
+        if (gridHeight < 3)
+            gridHeight = 3;
+        else if (gridHeight % 2 == 0)
+            gridHeight--;
 
         var labyrinth = new Grid();
-        labyrinth.Init(gridSizeX, gridSizeY);
+        labyrinth.Init(gridWidth, gridHeight);
 
         LoaderView.SetProgress(0.2f);
 

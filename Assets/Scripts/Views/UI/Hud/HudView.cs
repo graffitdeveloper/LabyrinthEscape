@@ -37,6 +37,8 @@ namespace LabyrinthEscape.HudView
                 _largeTimeText.text = _timerText.text;
                 _completedLayout.SetActive(true);
                 _simpleHud.SetActive(false);
+
+                _nameInputField.gameObject.SetActive(GameManager.Instance.CurrentGameType != GameType.Custom);
             }
 
             if (!GameManager.Instance.IsGameStarted && _completedLayout.activeInHierarchy)

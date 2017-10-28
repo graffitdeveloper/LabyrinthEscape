@@ -1,10 +1,13 @@
 ﻿using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
+using UnityEngine;
 
 namespace LabyrinthEscape.MenuSystem
 {
     public class PlayMenuView : MenuView
     {
+        [SerializeField] private CustomGameMenuView _customGameMenuView;
+
         public void OnPlayEasyButtonClicked()
         {
             StartGame(GameType.Easy);
@@ -28,7 +31,7 @@ namespace LabyrinthEscape.MenuSystem
 
         public void OnPlayCustomButtonClicked()
         {
-
+            _customGameMenuView.Show(this);
         }
     }
 }

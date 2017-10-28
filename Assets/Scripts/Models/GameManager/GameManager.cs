@@ -25,6 +25,10 @@
 
         public GameType CurrentGameType;
 
+        public int CustomGameFieldWidth;
+
+        public int CustomGameFieldHeight;
+
         public bool IsGameStarted = false;
 
         public bool IsGameFinished = false;

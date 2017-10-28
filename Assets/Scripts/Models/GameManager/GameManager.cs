@@ -1,6 +1,4 @@
-﻿using LabyrinthEscape.Loader;
-
-namespace LabyrinthEscape.GameManagerControls
+﻿namespace LabyrinthEscape.GameManagerControls
 {
     public class GameManager
     {
@@ -25,9 +23,7 @@ namespace LabyrinthEscape.GameManagerControls
 
         #endregion
 
-        public int ChosenGridSizeX;
-
-        public int ChosenGridSizeY;
+        public GameType CurrentGameType;
 
         public bool IsGameStarted = false;
 

@@ -7,24 +7,22 @@ namespace LabyrinthEscape.MenuSystem
     {
         public void OnPlayEasyButtonClicked()
         {
-            StartGame(15, 15);
+            StartGame(GameType.Easy);
         }
 
         public void OnPlayMediumButtonClicked()
         {
-            StartGame(30, 30);
+            StartGame(GameType.Medium);
         }
 
         public void OnPlayHardButtonClicked()
         {
-            StartGame(50, 50);
+            StartGame(GameType.Hard);
         }
 
-        private void StartGame(int chosenGridSizeX, int chosenGridSizeY)
+        private void StartGame(GameType gameType)
         {
-            GameManager.Instance.ChosenGridSizeX = chosenGridSizeX;
-            GameManager.Instance.ChosenGridSizeY = chosenGridSizeY;
-
+            GameManager.Instance.CurrentGameType = gameType;
             SceneChanger.Instance.LoadGameScene();
         }
 

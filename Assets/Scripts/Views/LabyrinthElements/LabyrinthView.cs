@@ -35,7 +35,7 @@ namespace Assets.Scripts.LabyrinthElements
             foreach (var labyrinthElement in _labyrinthElements)
                 Destroy(labyrinthElement.gameObject);
 
-            _labyrinthElements = new List<LabyrinthElementView>();
+            _labyrinthElements.Clear();
 
             for (int y = 0; y < grid.Height; y++)
             for (int x = 0; x < grid.Width; x++)

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224684603346953426}
   - component: {fileID: 222769078809833724}
   - component: {fileID: 114989150351594782}
+  - component: {fileID: 114841423578215576}
   m_Layer: 5
   m_Name: ScoreItem
   m_TagString: Untagged
@@ -150,6 +151,19 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+--- !u!114 &114841423578215576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1219877160137324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9523308a2d9f9b4d9bb657cf4fdd374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameText: {fileID: 114292112350580690}
+  _timeText: {fileID: 114002666991232552}
 --- !u!114 &114859017430048704
 MonoBehaviour:
   m_ObjectHideFlags: 1

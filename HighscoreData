@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<HighScoreDataCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <EasyHighScore>
+    <HighScoreItem Name="gRaffit" Time="7" />
+    <HighScoreItem Name="The cat" Time="10" />
+    <HighScoreItem Name="graffit" Time="13" />
+    <HighScoreItem Name="graffit" Time="18" />
+  </EasyHighScore>
+  <MediumHighScore>
+    <HighScoreItem Name="supercat" Time="87" />
+  </MediumHighScore>
+  <HardHighScore>
+    <HighScoreItem Name="graffit" Time="38" />
+  </HardHighScore>
+</HighScoreDataCollection>

@@ -1,5 +1,6 @@
 ﻿using System;
 using LabyrinthEscape.GameManagerControls;
+using LabyrinthEscape.HighScoreControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace LabyrinthEscape.HudView
         [SerializeField] public GameObject _completedLayout;
         [SerializeField] public GameObject _simpleHud;
         [SerializeField] private Text _largeTimeText;
+        [SerializeField] private InputField _nameInputField;
 
         private float _currentTime;
 
@@ -59,12 +61,24 @@ namespace LabyrinthEscape.HudView
 
         public void OnRetryPressed()
         {
+            SaveRecord();
             SceneChanger.Instance.LoadGameScene();
         }
 
         public void OnMainMenuButtonPressed()
         {
+            SaveRecord();
             SceneChanger.Instance.LoadMainScene();
+        }
+
+        public void SaveRecord()
+        {
+            if (GameManager.Instance.CurrentGameType == GameType.Custom)
+                return;
+
+            HighScoreData.WriteNewResult(GameManager.Instance.CurrentGameType,
+                string.IsNullOrEmpty(_nameInputField.text) ? "Noname" : _nameInputField.text,
+                Mathf.RoundToInt(_currentTime));
         }
     }
 }

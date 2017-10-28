@@ -1,4 +1,5 @@
-﻿﻿using Assets.Scripts.LabyrinthElements;
+﻿﻿using System;
+ using Assets.Scripts.LabyrinthElements;
 using LabyrinthEscape.GameManagerControls;
 using System.Collections;
 using LabyrinthEscape.CameraControls;
@@ -8,7 +9,7 @@ using LabyrinthEscape.Loader;
 using LabyrinthEscape.PlayerControls;
 using UnityEngine;
 
-public class MainController : MonoBehaviour
+public class GameSceneController : MonoBehaviour
 {
     #region Layout
 
@@ -29,9 +30,33 @@ public class MainController : MonoBehaviour
 
     public IEnumerator GenerateLabyrinth()
     {
-        int gridSizeX = GameManager.Instance.ChosenGridSizeX;
-        int gridSizeY = GameManager.Instance.ChosenGridSizeY;
+        var gridSizeX = 0;
+        var gridSizeY = 0;
 
+        switch (GameManager.Instance.CurrentGameType)
+        {
+            case GameType.Easy:
+                gridSizeX = 15;
+                gridSizeY = 15;
+                break;
+
+            case GameType.Medium:
+                gridSizeX = 30;
+                gridSizeY = 30;
+                break;
+
+            case GameType.Hard:
+                gridSizeX = 50;
+                gridSizeY = 50;
+                break;
+
+            case GameType.Custom:
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        
         // Подстраивает размеры сетки под допустимые: для правильной постройки сетки ширина и высота сетки должны быть
         // с нечетной величиной, а так же больше или равны 3
         if (gridSizeX < 3)
@@ -43,7 +68,6 @@ public class MainController : MonoBehaviour
             gridSizeY = 3;
         else if (gridSizeY % 2 == 0)
             gridSizeY--;
-
 
         var labyrinth = new Grid();
         labyrinth.Init(gridSizeX, gridSizeY);
@@ -67,8 +91,6 @@ public class MainController : MonoBehaviour
     {
         _playerView.OnPlayerFinishedLabyrinth = null;
         _cameraView.ReactToControls = false;
-
-        //todo
 
     }
 

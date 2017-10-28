@@ -1,10 +1,11 @@
-﻿using LabyrinthEscape.Loader;
+﻿using LabyrinthEscape.HighScoreControls;
+using LabyrinthEscape.Loader;
 using LabyrinthEscape.MenuSystem;
 using UnityEngine;
 
 namespace LabyrinthEscape.MainMenuControls
 {
-    public class MainMenuController : MonoBehaviour
+    public class MainSceneController : MonoBehaviour
     {
         [SerializeField]
         private MainMenuView _mainMenu;

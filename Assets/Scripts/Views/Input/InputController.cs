@@ -43,16 +43,16 @@ namespace LabyrinthEscape.InputControls
 
         private void CheckDirectionsInput()
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
                 CurrentMovingDirection = InputDirection.Up;
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
                 CurrentMovingDirection = InputDirection.Right;
 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
                 CurrentMovingDirection = InputDirection.Down;
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
                 CurrentMovingDirection = InputDirection.Left;
 
             if (!Input.anyKey)

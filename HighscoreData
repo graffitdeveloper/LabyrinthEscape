@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <HighScoreDataCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <EasyHighScore>
+    <HighScoreItem Name="Noname" Time="2" DoneSteps="8" />
     <HighScoreItem Name="Noname" Time="3" DoneSteps="10" />
     <HighScoreItem Name="graffit" Time="4" DoneSteps="17" />
+    <HighScoreItem Name="Noname" Time="4" DoneSteps="14" />
     <HighScoreItem Name="Noname" Time="6" DoneSteps="25" />
     <HighScoreItem Name="Noname" Time="6" DoneSteps="19" />
+    <HighScoreItem Name="Noname" Time="6" DoneSteps="25" />
     <HighScoreItem Name="Noname" Time="7" DoneSteps="27" />
     <HighScoreItem Name="Noname" Time="7" DoneSteps="26" />
     <HighScoreItem Name="Noname" Time="10" DoneSteps="34" />
-    <HighScoreItem Name="graffit" Time="14" DoneSteps="53" />
-    <HighScoreItem Name="Noname" Time="20" DoneSteps="78" />
-    <HighScoreItem Name="graffit" Time="21" DoneSteps="78" />
   </EasyHighScore>
   <MediumHighScore>
+    <HighScoreItem Name="Noname" Time="10" DoneSteps="38" />
+    <HighScoreItem Name="Noname" Time="11" DoneSteps="45" />
     <HighScoreItem Name="graffit" Time="37" DoneSteps="141" />
   </MediumHighScore>
   <HardHighScore />

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.GridControls;
 using LabyrinthEscape.Loader;
 using UnityEngine;
@@ -85,7 +86,20 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
                 }
             }
 
-            outsideWalls[Random.Range(0, outsideWalls.Count)].CellType = CellType.FinishPoint;
+            if (GameManager.Instance.CurrentGameType == GameType.Custom)
+            {
+                for (int i = 0; i < GameManager.Instance.CustomGameExitsCount; i++)
+                {
+                    if(outsideWalls.Count == 0)
+                        break;
+
+                    var chosenWallIndex = Random.Range(0, outsideWalls.Count);
+                    outsideWalls[chosenWallIndex].CellType = CellType.FinishPoint;
+                    outsideWalls.RemoveAt(chosenWallIndex);
+                }
+            }
+            else
+                outsideWalls[Random.Range(0, outsideWalls.Count)].CellType = CellType.FinishPoint;
 
             var trueCenterPoint = grid.GetCell(grid.Width / 2, grid.Height / 2);
             trueCenterPoint.CellType = CellType.SpawnPoint;

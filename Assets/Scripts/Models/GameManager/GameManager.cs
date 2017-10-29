@@ -29,6 +29,8 @@
 
         public int CustomGameFieldHeight;
 
+        public int CustomGameExitsCount;
+
         public bool IsGameStarted = false;
 
         public bool IsGameFinished = false;

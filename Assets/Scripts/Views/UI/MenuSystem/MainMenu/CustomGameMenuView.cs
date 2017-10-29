@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Views;
 using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
 using UnityEngine;
@@ -51,6 +52,8 @@ namespace LabyrinthEscape.MenuSystem
 
         public void OnPlayClicked()
         {
+            SoundManagerView.Instance.PlayMenuChooseEffect();
+
             GameManager.Instance.CurrentGameType = GameType.Custom;
             GameManager.Instance.CustomGameFieldWidth = Convert.ToInt32(_widthField.text);
             GameManager.Instance.CustomGameFieldHeight = Convert.ToInt32(_heightField.text);

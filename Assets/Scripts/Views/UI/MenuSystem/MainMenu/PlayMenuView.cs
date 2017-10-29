@@ -1,4 +1,5 @@
-﻿using LabyrinthEscape.GameManagerControls;
+﻿using Assets.Scripts.Views;
+using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ namespace LabyrinthEscape.MenuSystem
 
         private void StartGame(GameType gameType)
         {
+            SoundManagerView.Instance.PlayMenuChooseEffect();
+
             GameManager.Instance.CurrentGameType = gameType;
             SceneChanger.Instance.LoadGameScene();
         }

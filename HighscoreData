@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <HighScoreDataCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <EasyHighScore>
+    <HighScoreItem Name="Noname" Time="2" />
+    <HighScoreItem Name="Noname" Time="3" />
+    <HighScoreItem Name="Noname" Time="4" />
+    <HighScoreItem Name="Noname" Time="5" />
+    <HighScoreItem Name="Noname" Time="5" />
     <HighScoreItem Name="gRaffit" Time="7" />
+    <HighScoreItem Name="Noname" Time="7" />
+    <HighScoreItem Name="Noname" Time="7" />
     <HighScoreItem Name="garff" Time="9" />
-    <HighScoreItem Name="The cat" Time="10" />
-    <HighScoreItem Name="graffit" Time="13" />
-    <HighScoreItem Name="graffit" Time="13" />
-    <HighScoreItem Name="graffit" Time="18" />
+    <HighScoreItem Name="graffit" Time="9" />
   </EasyHighScore>
   <MediumHighScore>
     <HighScoreItem Name="supercat" Time="87" />

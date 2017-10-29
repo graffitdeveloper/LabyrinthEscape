@@ -1,4 +1,6 @@
-﻿using LabyrinthEscape.GameSettingsControls;
+﻿using Assets.Scripts.Views;
+using LabyrinthEscape.GameManagerControls;
+using LabyrinthEscape.GameSettingsControls;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,7 +49,21 @@ namespace LabyrinthEscape.MenuSystem
             GameSettings.Instance.IsMusicEnable = IsMusicEnabled;
             GameSettings.Instance.IsSoundEnable = IsSoundEnabled;
             GameSettings.Instance.Save();
+
             OnBackButtonClicked();
+
+            if (IsMusicEnabled)
+            {
+                if (!SoundManagerView.Instance.IsMusicPlaying)
+                {
+                    if (_previousMenu is InGameMenu && GameManager.Instance.IsGameStarted)
+                        SoundManagerView.Instance.PlayRandomActionMusic();
+                    else if (_previousMenu is MainMenuView)
+                        SoundManagerView.Instance.PlayTitle();
+                }
+            }
+            else
+                SoundManagerView.Instance.StopMusic();
         }
 
         public void ToggleMusic()

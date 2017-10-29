@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Views;
 using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.HighScoreControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
@@ -63,12 +64,14 @@ namespace LabyrinthEscape.HudView
 
         public void OnRetryPressed()
         {
+            SoundManagerView.Instance.PlayMenuChooseEffect();
             SaveRecord();
             SceneChanger.Instance.LoadGameScene();
         }
 
         public void OnMainMenuButtonPressed()
         {
+            SoundManagerView.Instance.PlayMenuChooseEffect();
             SaveRecord();
             SceneChanger.Instance.LoadMainScene();
         }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Views;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace LabyrinthEscape.Loader
@@ -18,14 +19,6 @@ namespace LabyrinthEscape.Loader
             get { return _instance; }
         }
 
-        #endregion
-
-        [SerializeField] private Text _currentProgressText;
-
-        [SerializeField] private Slider _loaderSlider;
-
-        [SerializeField] private Canvas _loaderCanvas;
-
         public void Awake()
         {
             if (_instance != null)
@@ -38,6 +31,14 @@ namespace LabyrinthEscape.Loader
             Hide();
         }
 
+        #endregion
+
+        [SerializeField] private Text _currentProgressText;
+
+        [SerializeField] private Slider _loaderSlider;
+
+        [SerializeField] private Canvas _loaderCanvas;
+
         public static void Hide()
         {
             Instance.gameObject.SetActive(false);
@@ -45,6 +46,7 @@ namespace LabyrinthEscape.Loader
 
         public static void Show()
         {
+            SoundManagerView.Instance.StopMusic();
             Instance._loaderSlider.gameObject.SetActive(true);
             Instance.gameObject.SetActive(true);
         }

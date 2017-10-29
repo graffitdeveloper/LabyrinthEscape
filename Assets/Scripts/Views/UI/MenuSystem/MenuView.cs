@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Views;
+using UnityEngine;
 
 namespace LabyrinthEscape.MenuSystem
 {
     public class MenuView : MonoBehaviour
     {
-        private MenuView _previousMenu;
+        protected MenuView _previousMenu;
 
         /// <summary>
         /// Отображает меню. Меню, указанное параметром будет считаться
@@ -24,11 +25,14 @@ namespace LabyrinthEscape.MenuSystem
                 _previousMenu.Hide();
             }
 
+            SoundManagerView.Instance.PlayMenuChooseEffect();
+
             gameObject.SetActive(true);
         }
 
         public virtual void ShowWithoutParamethers()
         {
+            SoundManagerView.Instance.PlayMenuChooseEffect();
             gameObject.SetActive(true);
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Views;
 using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.GridControls;
 using LabyrinthEscape.InputControls;
@@ -33,6 +34,12 @@ namespace LabyrinthEscape.PlayerControls
         [SerializeField] private Animation _animation;
 
         [SerializeField] private PawSpawner _pawSpawner;
+
+        /// <summary>
+        /// Скорость бега
+        /// </summary>
+        [SerializeField]
+        private GameObject _salute;
 
 #pragma warning restore 649
 
@@ -165,6 +172,8 @@ namespace LabyrinthEscape.PlayerControls
 
                     PlayYeahAnimation();
 
+                    _salute.SetActive(true);
+
                     if (OnPlayerFinishedLabyrinth != null)
                         OnPlayerFinishedLabyrinth();
                 }
@@ -196,6 +205,9 @@ namespace LabyrinthEscape.PlayerControls
         {
             if (!_isCatStay) return;
 
+            if(!GameManager.Instance.IsGameStarted)
+                SoundManagerView.Instance.PlayRandomActionMusic();
+
             GameManager.Instance.IsGameStarted = true;
 
             _isCatStay = false;
@@ -205,6 +217,7 @@ namespace LabyrinthEscape.PlayerControls
         private void PlayYeahAnimation()
         {
             _animation.Play("Cat_Yeah");
+            SoundManagerView.Instance.PlayCongratsEffect();
         }
 
         #endregion
@@ -213,6 +226,8 @@ namespace LabyrinthEscape.PlayerControls
         {
             _pawSpawner.Enabled = true;
             _pawSpawner.ClearCurrentPaws();
+            _salute.SetActive(false);
+            SoundManagerView.Instance.PlayCricket();
 
             GameManager.Instance.IsGamePaused = false;
             GameManager.Instance.IsGameFinished = false;

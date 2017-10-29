@@ -1,4 +1,5 @@
-﻿using LabyrinthEscape.GameManagerControls;
+﻿using Assets.Scripts.Views;
+using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.LabyrinthGeneratorControls;
 
 namespace LabyrinthEscape.MenuSystem
@@ -16,11 +17,13 @@ namespace LabyrinthEscape.MenuSystem
         {
             base.OnBackButtonClicked();
 
+            SoundManagerView.Instance.PlayMenuChooseEffect();
             GameManager.Instance.IsGamePaused = false;
         }
 
         public void OnYesButtonClicked()
         {
+            SoundManagerView.Instance.PlayMenuChooseEffect();
             SceneChanger.Instance.LoadGameScene();
         }
     }

@@ -1,4 +1,4 @@
-﻿using LabyrinthEscape.HighScoreControls;
+﻿using Assets.Scripts.Views;
 using LabyrinthEscape.Loader;
 using LabyrinthEscape.MenuSystem;
 using UnityEngine;
@@ -26,6 +26,8 @@ namespace LabyrinthEscape.MainMenuControls
             _titleAnimation.CrossFadeQueued("LabyrinthEscape_Tittle_Loop");
             _pressAnyKeyLabel.gameObject.SetActive(true);
             _isTitleHided = false;
+
+            SoundManagerView.Instance.PlayTitle();
         }
 
         public void Update()

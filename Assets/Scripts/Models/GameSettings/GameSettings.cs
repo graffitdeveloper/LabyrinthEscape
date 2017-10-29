@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Views;
+using UnityEngine;
 
 namespace LabyrinthEscape.GameSettingsControls
 {

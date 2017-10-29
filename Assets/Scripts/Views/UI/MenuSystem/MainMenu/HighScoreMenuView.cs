@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts.Views;
 using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.HighScoreControls;
 using UnityEngine;
@@ -24,22 +25,27 @@ namespace LabyrinthEscape.MenuSystem
         {
             HighScoreData.ClearResults();
 
+            SoundManagerView.Instance.PlayMenuChooseEffect();
+
             OnEasyButtonPressed();
         }
 
         public void OnEasyButtonPressed()
         {
             FillList(GameType.Easy);
+            SoundManagerView.Instance.PlayMenuChooseEffect();
         }
 
         public void OnMediumButtonPressed()
         {
             FillList(GameType.Medium);
+            SoundManagerView.Instance.PlayMenuChooseEffect();
         }
 
         public void OnHardButtonPressed()
         {
             FillList(GameType.Hard);
+            SoundManagerView.Instance.PlayMenuChooseEffect();
         }
 
         public override void Show(MenuView previousMenu = null)

@@ -1,9 +1,18 @@
 ﻿using UnityEngine;
 
-public class DontDestroyOnLoad : MonoBehaviour
+namespace LabyrinthEscape.SomeHelpers
 {
-    protected void Awake()
+    /// <summary>
+    /// Вспомогательный скрипт, для быстрого создания неудаляемых со сцены объектов
+    /// </summary>
+    public class DontDestroyOnLoad : MonoBehaviour
     {
-        DontDestroyOnLoad(transform.gameObject);
+        /// <summary>
+        /// Инициализация
+        /// </summary>
+        protected void Awake()
+        {
+            DontDestroyOnLoad(transform.gameObject);
+        }
     }
 }

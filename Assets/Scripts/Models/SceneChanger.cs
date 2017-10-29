@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 namespace LabyrinthEscape.LabyrinthGeneratorControls
 {
+    /// <summary>
+    /// Класс, инкапсулирующий смену сцен
+    /// </summary>
     public class SceneChanger : MonoBehaviour
     {
         #region Singleton
@@ -31,6 +34,9 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
 
         #endregion
 
+        /// <summary>
+        /// Загрузка игровой сцены
+        /// </summary>
         public void LoadGameScene()
         {
             LoaderView.Show();
@@ -39,6 +45,10 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
             StartCoroutine(LoadGameSceneAsync());
         }
 
+        /// <summary>
+        /// Асинхронная загрузка игровой сцены
+        /// </summary>
+        /// <returns></returns>
         IEnumerator LoadGameSceneAsync()
         {
             var asyncLoad = SceneManager.LoadSceneAsync("Game");
@@ -49,7 +59,9 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
             LoaderView.SetProgress(0.1f);
         }
 
-
+        /// <summary>
+        /// Загрузка титульного экрана
+        /// </summary>
         public void LoadMainScene()
         {
             LoaderView.Show();
@@ -58,6 +70,9 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
             StartCoroutine(LoadMainSceneAsync());
         }
 
+        /// <summary>
+        /// Асинхронная загрузка титульного экрана
+        /// </summary>
         IEnumerator LoadMainSceneAsync()
         {
             var asyncLoad = SceneManager.LoadSceneAsync("MainMenu");

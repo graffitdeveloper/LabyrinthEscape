@@ -1,8 +1,10 @@
-﻿using Assets.Scripts.Views;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LabyrinthEscape.GameSettingsControls
 {
+    /// <summary>
+    /// Настройки игры
+    /// </summary>
     public class GameSettings
     {
         #region Singleton
@@ -29,10 +31,25 @@ namespace LabyrinthEscape.GameSettingsControls
 
         #endregion
 
+        #region Fields
+
+        /// <summary>
+        /// Состояние активности музыки
+        /// </summary>
         public bool IsMusicEnable;
 
+        /// <summary>
+        /// Состояние активности звуков
+        /// </summary>
         public bool IsSoundEnable;
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Загрузка настроек из PlayerPrefs
+        /// </summary>
         public void Load()
         {
             // если в плеерпрефсах нет такого значения, значит настройки не были ни разу созданы, и по умолчанию должно
@@ -41,10 +58,15 @@ namespace LabyrinthEscape.GameSettingsControls
             IsSoundEnable = PlayerPrefs.GetInt("Settings_IsSoundEnable", 1) == 1;
         }
 
+        /// <summary>
+        /// Сохранение настроек в PlayerPrefs
+        /// </summary>
         public void Save()
         {
             PlayerPrefs.SetInt("Settings_IsMusicEnable", IsMusicEnable ? 1 : 0);
             PlayerPrefs.SetInt("Settings_IsSoundEnable", IsSoundEnable ? 1 : 0);
         }
+
+        #endregion
     }
 }

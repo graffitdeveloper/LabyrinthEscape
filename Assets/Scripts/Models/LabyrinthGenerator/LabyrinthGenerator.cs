@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace LabyrinthEscape.LabyrinthGeneratorControls
 {
+    /// <summary>
+    /// Генератор лабиринта
+    /// </summary>
     public class LabyrinthGenerator : MonoBehaviour
     {
         #region Singleton
@@ -34,9 +37,9 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
         #endregion
 
         /// <summary>
-        /// Генерация лабиринта
+        /// Запуск процесса генерации лабиринта
         /// </summary>
-        /// <param name="resultLabyrinth"></param>
+        /// <param name="resultLabyrinth">Сетка, над которой будут производиться изменения</param>
         public IEnumerator GenerateLabyrinth(Grid resultLabyrinth)
         {
             yield return StartCoroutine(ModifyLabyrinthBlank(resultLabyrinth));
@@ -46,10 +49,15 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
             ModifyLabyrinthAddSpawnAndExit(resultLabyrinth);
         }
 
+        /// <summary>
+        /// Добавляет выходы и спавн точку
+        /// </summary>
+        /// <param name="grid">Сетка, над которой будут производиться изменения</param>
         private void ModifyLabyrinthAddSpawnAndExit(Grid grid)
         {
             var outsideWalls = new List<GridCell>();
 
+            // собираем все внешние стены в список
             for (int y = 0; y < grid.Height; y++)
             {
                 for (int x = 0; x < grid.Width; x++)
@@ -88,9 +96,10 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
 
             if (GameManager.Instance.CurrentGameType == GameType.Custom)
             {
+                // кастомная игра - возможно сделать несколько выходов из лабиринта
                 for (int i = 0; i < GameManager.Instance.CustomGameExitsCount; i++)
                 {
-                    if(outsideWalls.Count == 0)
+                    if (outsideWalls.Count == 0)
                         break;
 
                     var chosenWallIndex = Random.Range(0, outsideWalls.Count);
@@ -99,14 +108,17 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
                 }
             }
             else
+                // обычная игра - только один выход из лабиринта, берем любой из подходящих рандомно
                 outsideWalls[Random.Range(0, outsideWalls.Count)].CellType = CellType.FinishPoint;
 
+            // превращаем центральную точку лабиринта в точку спавна
             var trueCenterPoint = grid.GetCell(grid.Width / 2, grid.Height / 2);
             trueCenterPoint.CellType = CellType.SpawnPoint;
         }
 
         /// <summary>
-        /// Генерирует заготовку лабиринта
+        /// Генерирует заготовку лабиринта (пустые одиночные клетки окруженные стенами со всех сторон). Лабиринт будет
+        /// генерироваться из это заготовки путем ломания стен между клетками)
         /// </summary>
         private IEnumerator ModifyLabyrinthBlank(Grid grid)
         {
@@ -143,6 +155,12 @@ namespace LabyrinthEscape.LabyrinthGeneratorControls
             return countPossibleCellsInRow * countPossibleRows + countTunnelsBetweenRows;
         }
 
+        /// <summary>
+        /// Копает лабиринт. Алгоритм берет любую свободную клетку, и убирает стены к соседним свободным. Если соседних
+        /// свободных в какой-то момент не окажется - алгоритм движется по стеку пройденных клеток назад, к соседям, 
+        /// которых он ещё не посетил, если находит таковых - копает уже в их сторону, а если нет - лабиринт готов
+        /// </summary>
+        /// <param name="grid">Сетка, над которой будут производиться изменения</param>
         private IEnumerator ModifyLabyrinthCreateRandomCoridors(Grid grid)
         {
             var freeCellsInReadyLabyrinthCount = GetFreeCellsCount(grid);

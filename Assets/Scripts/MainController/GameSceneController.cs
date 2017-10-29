@@ -1,5 +1,5 @@
 ﻿﻿using System;
- using Assets.Scripts.LabyrinthElements;
+using Assets.Scripts.LabyrinthElements;
 using LabyrinthEscape.GameManagerControls;
 using System.Collections;
 using LabyrinthEscape.CameraControls;
@@ -9,25 +9,48 @@ using LabyrinthEscape.Loader;
 using LabyrinthEscape.PlayerControls;
 using UnityEngine;
 
+/// <summary>
+/// Контроллер игровой сцены
+/// </summary>
 public class GameSceneController : MonoBehaviour
 {
     #region Layout
 
+#pragma warning disable 649
+
+    /// <summary>
+    /// Вьюшка лабиринта
+    /// </summary>
+
     [SerializeField] private LabyrinthView _labyrinthView;
 
+    /// <summary>
+    /// Вьюшка камеры
+    /// </summary>
     [SerializeField] private CameraView _cameraView;
 
+    /// <summary>
+    /// Вьюшка игрока
+    /// </summary>
     [SerializeField] private PlayerView _playerView;
+
+#pragma warning restore 649
 
     #endregion
 
     #region Methods
 
+    /// <summary>
+    /// Инициализация, сразу запускает генерацию лабиринта, т.к. это уже игровая сцена
+    /// </summary>
     public void Start()
     {
         StartCoroutine(GenerateLabyrinth());
     }
 
+    /// <summary>
+    /// Генерация лабиринта в коротине
+    /// </summary>
     public IEnumerator GenerateLabyrinth()
     {
         int gridWidth;
@@ -55,7 +78,7 @@ public class GameSceneController : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        
+
         // Подстраивает размеры сетки под допустимые: для правильной постройки сетки ширина и высота сетки должны быть
         // с нечетной величиной, а так же больше или равны 3
         if (gridWidth < 3)
@@ -76,6 +99,7 @@ public class GameSceneController : MonoBehaviour
         yield return StartCoroutine(LabyrinthGenerator.Instance.GenerateLabyrinth(labyrinth));
 
         LoaderView.SetProgress(1f);
+
         _labyrinthView.DrawGrid(labyrinth);
 
         _cameraView.ReactToControls = true;
@@ -87,16 +111,21 @@ public class GameSceneController : MonoBehaviour
         LoaderView.Hide();
     }
 
+    /// <summary>
+    /// Вызывается когда игрок перешагнул с клетки на клетку
+    /// </summary>
     private void PlayerDoneStep()
     {
         GameManager.Instance.StepDone();
     }
 
+    /// <summary>
+    /// Вызывается когда игрок финишировал
+    /// </summary>
     public void OnPlayerFinishedLabyrinth()
     {
         _playerView.OnPlayerFinishedLabyrinth = null;
         _cameraView.ReactToControls = false;
-
     }
 
     #endregion

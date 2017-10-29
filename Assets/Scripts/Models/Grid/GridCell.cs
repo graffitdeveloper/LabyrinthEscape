@@ -25,6 +25,9 @@ namespace LabyrinthEscape.GridControls
         /// </summary>
         public int PositionY { get; private set; }
 
+        /// <summary>
+        /// Ссылка на сетку, которой принадлежит ячейка
+        /// </summary>
         private Grid _parentGrid;
 
         #endregion

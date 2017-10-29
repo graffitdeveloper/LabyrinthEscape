@@ -2,8 +2,15 @@
 
 namespace LabyrinthEscape.SomeHelpers
 {
+    /// <summary>
+    /// Класс, в который можно добавлять общие вспомогательные методы
+    /// </summary>
     public class Helpers
     {
+        /// <summary>
+        /// Превращает время в секундах в строку типа ЧЧ:ММ:СС
+        /// </summary>
+        /// <param name="seconds">время в секундах, которое необходимо перевести в строку</param>
         public static string GetFormattedTimeFromSeconds(int seconds)
         {
             var timeSpan = TimeSpan.FromSeconds(seconds);

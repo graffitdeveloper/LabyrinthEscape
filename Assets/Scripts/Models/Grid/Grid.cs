@@ -19,8 +19,6 @@ namespace LabyrinthEscape.GridControls
         /// </summary>
         public int Height { get; private set; }
 
-        public int CellsCount { get; private set; }
-
         /// <summary>
         /// Массив всех ячеек
         /// </summary>
@@ -77,30 +75,36 @@ namespace LabyrinthEscape.GridControls
             return _gridCells[x, y];
         }
 
-        #endregion
-
+        /// <summary>
+        /// Возвращает все свободные ячейки из сетки
+        /// </summary>
         public List<GridCell> GetFreeCells()
         {
             var result = new List<GridCell>();
 
             for (int y = 0; y < Height; y++)
-                for (int x = 0; x < Width; x++)
-                    if (_gridCells[x, y].CellType == CellType.EmptyCell)
-                        result.Add(_gridCells[x, y]);
+            for (int x = 0; x < Width; x++)
+                if (_gridCells[x, y].CellType == CellType.EmptyCell)
+                    result.Add(_gridCells[x, y]);
 
             return result;
         }
 
+        /// <summary>
+        /// Возвращает точку появления игрока
+        /// </summary>
         public GridCell GetSpawnPoint()
         {
             for (int y = 0; y < Height; y++)
-                for (int x = 0; x < Width; x++)
-                {
-                    if (_gridCells[x, y].CellType == CellType.SpawnPoint)
-                        return _gridCells[x, y];
-                }
+            for (int x = 0; x < Width; x++)
+            {
+                if (_gridCells[x, y].CellType == CellType.SpawnPoint)
+                    return _gridCells[x, y];
+            }
 
             return null;
         }
+
+        #endregion
     }
 }

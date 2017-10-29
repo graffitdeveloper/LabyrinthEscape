@@ -497,11 +497,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114073489271515672, guid: 28f9cc9f6b4158d4ea8d821a447151da,
-        type: 2}
-      propertyPath: _menuHighlightEffect
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 28f9cc9f6b4158d4ea8d821a447151da, type: 2}
   m_IsPrefabParent: 0

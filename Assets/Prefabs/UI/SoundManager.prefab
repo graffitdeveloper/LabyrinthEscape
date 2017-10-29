@@ -386,7 +386,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menuChooseEffect: {fileID: 82638179520982538}
-  _menuHighlightEffect: {fileID: 0}
   _musicAudioSource: {fileID: 82827998155537146}
   _congratsEffect: {fileID: 82525491087931426}
   _musicList:

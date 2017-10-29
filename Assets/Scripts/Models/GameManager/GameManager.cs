@@ -1,4 +1,6 @@
-﻿namespace LabyrinthEscape.GameManagerControls
+﻿using LabyrinthEscape.PlayerControls;
+
+namespace LabyrinthEscape.GameManagerControls
 {
     /// <summary>
     /// Глобальный игровой менеджер, содержит разные важные для игры данные

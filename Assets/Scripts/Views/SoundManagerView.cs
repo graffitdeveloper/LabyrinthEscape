@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using LabyrinthEscape.GameManagerControls;
 using LabyrinthEscape.GameSettingsControls;
 using UnityEngine;
 
@@ -34,8 +33,6 @@ namespace Assets.Scripts.Views
         #endregion
 
         [SerializeField] private AudioSource _menuChooseEffect;
-
-        [SerializeField] private AudioSource _menuHighlightEffect;
 
         [SerializeField] private AudioSource _musicAudioSource;
 

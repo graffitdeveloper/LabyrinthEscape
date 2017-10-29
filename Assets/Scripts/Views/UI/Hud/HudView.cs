@@ -17,9 +17,7 @@ namespace LabyrinthEscape.HudView
         [SerializeField] private Text _largeTimeText;
         [SerializeField] private Text _largeStepsText;
         [SerializeField] private InputField _nameInputField;
-        [SerializeField] private Animation _miniTutorialAnimation;
 
-        private bool _isTutorialHided = false;
         private float _currentTime;
 
         /// <summary>
@@ -51,15 +49,6 @@ namespace LabyrinthEscape.HudView
             {
                 _completedLayout.SetActive(false);
                 _simpleHud.SetActive(true);
-
-                _isTutorialHided = false;
-                _miniTutorialAnimation.Play("MiniTutorial_Show");
-            }
-
-            if (GameManager.Instance.IsGameStarted && !_isTutorialHided)
-            {
-                _miniTutorialAnimation.Play("MiniTutorial_Hide");
-                _isTutorialHided = true;
             }
         }
 

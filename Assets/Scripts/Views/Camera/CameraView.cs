@@ -36,6 +36,7 @@ namespace LabyrinthEscape.CameraControls
             _cachedCameraZPosition = transform.position.z;
             _cachedCameraOrtho = Camera.main.orthographicSize;
             _thisCamera = GetComponent<Camera>();
+            InputController.Instance.SetCamera(this);
         }
 
         public void SetToPlayer(Transform playerTransform)
@@ -81,6 +82,18 @@ namespace LabyrinthEscape.CameraControls
 
             transform.position = Vector3.Lerp(transform.position, cameraTargetPosition, _cameraSpeed * Time.deltaTime);
             SetOrtho();
+        }
+
+        /// <summary>
+        /// Возвращает сдвиг камеры относительно кота; векторное расстояние, которое должна пройти камера что бы
+        /// достичь игрока
+        /// </summary>
+        public Vector3 GetCameraOffset()
+        {
+            if(_playerTransform == null)
+                return Vector3.zero;
+
+            return _playerTransform.position - transform.position;
         }
 
         private void SetOrtho()

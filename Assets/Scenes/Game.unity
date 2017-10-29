@@ -481,7 +481,7 @@ MonoBehaviour:
 RectTransform:
   m_PrefabParentObject: {fileID: 224648101056830120, guid: 48be10a270e4a4842975a779625010c1,
     type: 2}
-  m_PrefabInternal: {fileID: 1849883461}
+  m_PrefabInternal: {fileID: 1719091605}
 --- !u!1001 &1044256039
 Prefab:
   m_ObjectHideFlags: 0
@@ -851,13 +851,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1307434503}
   m_Script: {fileID: 11500000, guid: 53994aeaf2ad9af4aadae5f8ff342e47, type: 3}
---- !u!114 &1750974469 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114595714324424188, guid: e2d37c35c5aeaac44a937e2a69b402db,
-    type: 2}
-  m_PrefabInternal: {fileID: 1044256039}
-  m_Script: {fileID: 11500000, guid: 1c2b399b7190fe54d8fe777a9ee8df85, type: 3}
---- !u!1001 &1849883461
+--- !u!1001 &1719091605
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -954,19 +948,25 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114227646501594408, guid: 48be10a270e4a4842975a779625010c1,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 666377228}
     - target: {fileID: 114026643513929996, guid: 48be10a270e4a4842975a779625010c1,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1307434505}
+    - target: {fileID: 114227646501594408, guid: 48be10a270e4a4842975a779625010c1,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 666377228}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48be10a270e4a4842975a779625010c1, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1750974469 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114595714324424188, guid: e2d37c35c5aeaac44a937e2a69b402db,
+    type: 2}
+  m_PrefabInternal: {fileID: 1044256039}
+  m_Script: {fileID: 11500000, guid: 1c2b399b7190fe54d8fe777a9ee8df85, type: 3}
 --- !u!1 &1859225932
 GameObject:
   m_ObjectHideFlags: 0

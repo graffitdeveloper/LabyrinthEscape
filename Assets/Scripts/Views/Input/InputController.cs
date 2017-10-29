@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using LabyrinthEscape.CameraControls;
+using LabyrinthEscape.GameManagerControls;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace LabyrinthEscape.InputControls
 {
@@ -30,6 +33,8 @@ namespace LabyrinthEscape.InputControls
 
         private InputDirection _currentMovingDirection = InputDirection.None;
 
+        private CameraView _cameraView;
+
         public InputDirection CurrentMovingDirection
         {
             get { return _currentMovingDirection; }
@@ -38,7 +43,38 @@ namespace LabyrinthEscape.InputControls
 
         public void Update()
         {
+            if (GameManager.Instance.IsGamePaused || GameManager.Instance.IsGameFinished)
+            {
+                CurrentMovingDirection = InputDirection.None;
+                return;
+            }
+
             CheckDirectionsInput();
+
+            if (!EventSystem.current.IsPointerOverGameObject())
+                CheckMouseInput();
+        }
+
+        private void CheckMouseInput()
+        {
+            if (Input.GetMouseButton(0))
+            {
+                var cameraOffset = _cameraView.GetCameraOffset();
+
+                var playerPosition =
+                    Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f)) + cameraOffset;
+                var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                var distance = new Vector3(Mathf.Abs(mousePosition.x - playerPosition.x),
+                    Mathf.Abs(mousePosition.y - playerPosition.y), 0);
+
+                if (distance.x < distance.y)
+                    CurrentMovingDirection =
+                        mousePosition.y > playerPosition.y ? InputDirection.Up : InputDirection.Down;
+                else if (distance.x > distance.y)
+                    CurrentMovingDirection =
+                        mousePosition.x > playerPosition.x ? InputDirection.Right : InputDirection.Left;
+            }
         }
 
         private void CheckDirectionsInput()
@@ -57,6 +93,11 @@ namespace LabyrinthEscape.InputControls
 
             if (!Input.anyKey)
                 CurrentMovingDirection = InputDirection.None;
+        }
+
+        public void SetCamera(CameraView cameraView)
+        {
+            _cameraView = cameraView;
         }
     }
 }

@@ -53,6 +53,7 @@ namespace LabyrinthEscape.PlayerControls
 
         public OnPlayerDoneStep OnPlayerDoneStep;
 
+
         /// <summary>
         /// Физика
         /// </summary>
@@ -120,6 +121,10 @@ namespace LabyrinthEscape.PlayerControls
             {
                 _rigidbody2D.velocity = Vector2.zero;
                 _pawSpawner.Enabled = false;
+                PlayStayAnimation();
+                _spriteRenderer.flipX = false;
+                transform.localRotation = Quaternion.identity;
+
                 return;
             }
 
@@ -231,8 +236,10 @@ namespace LabyrinthEscape.PlayerControls
         {
             if (!_isCatStay) return;
 
-            if(!GameManager.Instance.IsGameStarted)
+            if (!GameManager.Instance.IsGameStarted)
+            {
                 SoundManagerView.Instance.PlayRandomActionMusic();
+            }
 
             GameManager.Instance.IsGameStarted = true;
 

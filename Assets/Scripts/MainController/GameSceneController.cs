@@ -102,10 +102,12 @@ public class GameSceneController : MonoBehaviour
 
         _labyrinthView.DrawGrid(labyrinth);
 
-        _cameraView.ReactToControls = true;
-        _playerView.Spawn(labyrinth.GetSpawnPoint());
         _playerView.OnPlayerFinishedLabyrinth += OnPlayerFinishedLabyrinth;
         _playerView.OnPlayerDoneStep += PlayerDoneStep;
+
+        _cameraView.ReactToControls = true;
+        _playerView.Spawn(labyrinth.GetSpawnPoint());
+
         _cameraView.SetToPlayer(_playerView.transform);
 
         LoaderView.Hide();

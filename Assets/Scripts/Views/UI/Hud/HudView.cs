@@ -11,9 +11,11 @@ namespace LabyrinthEscape.HudView
     public class HudView : MonoBehaviour
     {
         [SerializeField] private Text _timerText;
+        [SerializeField] private Text _stepsText;
         [SerializeField] public GameObject _completedLayout;
         [SerializeField] public GameObject _simpleHud;
         [SerializeField] private Text _largeTimeText;
+        [SerializeField] private Text _largeStepsText;
         [SerializeField] private InputField _nameInputField;
 
         private float _currentTime;
@@ -35,7 +37,8 @@ namespace LabyrinthEscape.HudView
 
             if (GameManager.Instance.IsGameFinished && !_completedLayout.activeInHierarchy)
             {
-                _largeTimeText.text = _timerText.text;
+                _largeTimeText.text = GetFormattedTimeFromSeconds(Mathf.RoundToInt(_currentTime));
+                _largeStepsText.text = _stepsText.text;
                 _completedLayout.SetActive(true);
                 _simpleHud.SetActive(false);
 
@@ -52,13 +55,17 @@ namespace LabyrinthEscape.HudView
         private void ManageTimer()
         {
             if (!GameManager.Instance.IsGameStarted)
-                _timerText.text = "00:00:00";
+            {
+                _timerText.text = "Time: 00:00:00";
+                _stepsText.text = "Steps: 0";
+            }
 
             if (GameManager.Instance.IsGameStarted &&
                 !GameManager.Instance.IsGamePaused && !GameManager.Instance.IsGameFinished)
             {
                 _currentTime += Time.deltaTime;
-                _timerText.text = GetFormattedTimeFromSeconds(Mathf.RoundToInt(_currentTime));
+                _timerText.text = "Time: " + GetFormattedTimeFromSeconds(Mathf.RoundToInt(_currentTime));
+                _stepsText.text = "Steps: " + GameManager.Instance.CurrentDoneSteps;
             }
         }
 
@@ -83,7 +90,7 @@ namespace LabyrinthEscape.HudView
 
             HighScoreData.WriteNewResult(GameManager.Instance.CurrentGameType,
                 string.IsNullOrEmpty(_nameInputField.text) ? "Noname" : _nameInputField.text,
-                Mathf.RoundToInt(_currentTime));
+                Mathf.RoundToInt(_currentTime), GameManager.Instance.CurrentDoneSteps);
         }
     }
 }

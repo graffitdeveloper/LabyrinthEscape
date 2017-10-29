@@ -9,6 +9,8 @@ namespace LabyrinthEscape.PlayerControls
 {
     public delegate void OnPlayerFinishedLabyrinth();
 
+    public delegate void OnPlayerDoneStep();
+
     /// <summary>
     /// Скрипт игрока
     /// </summary>
@@ -49,6 +51,8 @@ namespace LabyrinthEscape.PlayerControls
 
         public OnPlayerFinishedLabyrinth OnPlayerFinishedLabyrinth;
 
+        public OnPlayerDoneStep OnPlayerDoneStep;
+
         /// <summary>
         /// Физика
         /// </summary>
@@ -64,6 +68,9 @@ namespace LabyrinthEscape.PlayerControls
         /// </summary>
         private bool _isCatStay = true;
 
+        private int _lastPositionX;
+        private int _lastPositionY;
+        
         #endregion
 
         #region Methods
@@ -83,6 +90,25 @@ namespace LabyrinthEscape.PlayerControls
         public void Update()
         {
             MoveByControls();
+            CheckStepDone();
+        }
+
+        private void CheckStepDone()
+        {
+            if(GameManager.Instance.IsGamePaused ||
+                GameManager.Instance.IsGameFinished ||
+                !GameManager.Instance.IsGameStarted)
+                return;
+
+            var currentPositionX = Mathf.RoundToInt(transform.position.x);
+            var currentPositionY = Mathf.RoundToInt(transform.position.y);
+
+            if (_lastPositionX != currentPositionX || _lastPositionY != currentPositionY)
+            {
+                OnPlayerDoneStep();
+                _lastPositionX = currentPositionX;
+                _lastPositionY = currentPositionY;
+            }
         }
 
         /// <summary>
@@ -229,11 +255,15 @@ namespace LabyrinthEscape.PlayerControls
             _salute.SetActive(false);
             SoundManagerView.Instance.PlayCricket();
 
+            GameManager.Instance.CurrentDoneSteps = 0;
             GameManager.Instance.IsGamePaused = false;
             GameManager.Instance.IsGameFinished = false;
             GameManager.Instance.IsGameStarted = false;
 
             transform.position = new Vector3(gridCell.PositionX, gridCell.PositionY, 0);
+
+            _lastPositionX = Mathf.RoundToInt(transform.position.x);
+            _lastPositionY = Mathf.RoundToInt(transform.position.y);
         }
     }
 }

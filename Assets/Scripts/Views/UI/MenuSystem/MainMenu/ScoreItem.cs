@@ -14,7 +14,8 @@ namespace LabyrinthEscape.MenuSystem
         public void Init(HighScoreItem highScoreItem, int position)
         {
             _nameText.text = string.Format("{0}. {1}", position, highScoreItem.Name);
-            _timeText.text = Helpers.GetFormattedTimeFromSeconds(highScoreItem.Time);
+            _timeText.text = Helpers.GetFormattedTimeFromSeconds(highScoreItem.Time) + ", Steps: " +
+                             highScoreItem.DoneSteps;
         }
     }
 }

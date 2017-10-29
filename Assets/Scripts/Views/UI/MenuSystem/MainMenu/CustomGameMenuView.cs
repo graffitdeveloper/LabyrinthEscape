@@ -33,7 +33,7 @@ namespace LabyrinthEscape.MenuSystem
                 return;
             }
 
-            _widthField.text = Mathf.Clamp(Convert.ToInt32(_widthField.text), 5, 300).ToString();
+            _widthField.text = Mathf.Clamp(Convert.ToInt32(_widthField.text), 3, 150).ToString();
             _playButton.interactable = true;
         }
 
@@ -46,7 +46,7 @@ namespace LabyrinthEscape.MenuSystem
                 return;
             }
 
-            _heightField.text = Mathf.Clamp(Convert.ToInt32(_heightField.text), 5, 300).ToString();
+            _heightField.text = Mathf.Clamp(Convert.ToInt32(_heightField.text), 3, 150).ToString();
             _playButton.interactable = true;
         }
 

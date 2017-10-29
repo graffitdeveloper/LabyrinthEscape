@@ -43,7 +43,7 @@ namespace LabyrinthEscape.HighScoreControls
             return new HighScoreData();
         }
 
-        public static void WriteNewResult(GameType gameType, string name, int time)
+        public static void WriteNewResult(GameType gameType, string name, int time, int doneSteps)
         {
             var data = Load();
 
@@ -51,17 +51,17 @@ namespace LabyrinthEscape.HighScoreControls
             {
                 case GameType.Easy:
                     data.EasyHighScore = AddNewItemAndSortList(
-                        data.EasyHighScore, new HighScoreItem(name, time));
+                        data.EasyHighScore, new HighScoreItem(name, time, doneSteps));
                     break;
 
                 case GameType.Medium:
                     data.MediumHighScore = AddNewItemAndSortList(
-                        data.MediumHighScore, new HighScoreItem(name, time));
+                        data.MediumHighScore, new HighScoreItem(name, time, doneSteps));
                     break;
 
                 case GameType.Hard:
                     data.HardHighScore = AddNewItemAndSortList(
-                        data.HardHighScore, new HighScoreItem(name, time));
+                        data.HardHighScore, new HighScoreItem(name, time, doneSteps));
                     break;
 
                 default:

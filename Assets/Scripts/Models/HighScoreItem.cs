@@ -9,14 +9,17 @@ namespace LabyrinthEscape.HighScoreControls
             
         }
 
-        public HighScoreItem(string name, int time)
+        public HighScoreItem(string name, int time, int doneSteps)
         {
             Name = name;
             Time = time;
+            DoneSteps = doneSteps;
         }
 
         [XmlAttribute("Name")] public string Name;
 
         [XmlAttribute("Time")] public int Time;
+
+        [XmlAttribute("DoneSteps")] public int DoneSteps;
     }
 }

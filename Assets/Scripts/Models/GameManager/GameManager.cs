@@ -34,5 +34,12 @@
         public bool IsGameFinished = false;
 
         public bool IsGamePaused = false;
+
+        public int CurrentDoneSteps = 0;
+
+        public void StepDone()
+        {
+            CurrentDoneSteps++;
+        }
     }
 }

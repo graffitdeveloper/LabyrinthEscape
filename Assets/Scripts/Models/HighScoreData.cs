@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 using LabyrinthEscape.GameManagerControls;
+using UnityEngine;
 
 namespace LabyrinthEscape.HighScoreControls
 {
@@ -31,10 +32,18 @@ namespace LabyrinthEscape.HighScoreControls
         [XmlArray("HardHighScore")] [XmlArrayItem("HighScoreItem")]
         public List<HighScoreItem> HardHighScore = new List<HighScoreItem>();
 
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+
+        private static string _path = "HighscoreData";
+
+#elif UNITY_ANDROID || UNITY_IOS
+
         /// <summary>
         /// Путь к xml файлу
         /// </summary>
-        private static string _path = "HighscoreData";
+        private static string _path = Application.persistentDataPath;
+
+#endif
 
         /// <summary>
         /// Запись файла с данными о лидерах на диск
